@@ -1,4 +1,5 @@
 // import { EventEmitter } from 'events'
+import { evt } from './Util'
 import { Sound } from './Sound'
 
 const wnd: any = window
@@ -76,7 +77,7 @@ export class SoundSystem extends EventTarget {
     this.masterGain.gain.value = value
 
     localStorage.setItem('volume', value.toString())
-    this.dispatchEvent(new CustomEvent('volumeChange'));
+    this.dispatchEvent(evt('volumeChange'));
     //this.events.emit('volumeChange', value)
   }
 

@@ -1,5 +1,6 @@
 // import { EventEmitter } from 'events';
 import { Bsp } from './Bsp'
+import { evt } from './Util'
 import * as Time from './Time'
 import { Sound } from './Sound'
 import { Loader } from './Loader'
@@ -171,7 +172,7 @@ export class Game extends EventTarget {
   }
 
   load(name: string) {
-    this.dispatchEvent(new CustomEvent('loadstart'));
+    this.dispatchEvent(evt('loadstart'));
     this.loader.load(name)
   }
 
@@ -214,14 +215,14 @@ export class Game extends EventTarget {
 
   changeMode(mode: PlayerMode) {
     this.mode = mode
-    this.dispatchEvent(new CustomEvent('modechange'));
+    this.dispatchEvent(evt('modechange'));
   }
 
   setTitle(title: string) {
     this.title = title
     console.log(title);
     // this.events.emit('titlechange', title)
-    this.dispatchEvent(new CustomEvent('titlechange'));
+    this.dispatchEvent(evt('titlechange'));
   }
 
   getTitle() {
@@ -266,7 +267,7 @@ export class Game extends EventTarget {
     this.changeMap(map)
 
     // this.events.emit('load', loader)
-    this.dispatchEvent(new CustomEvent('load'));
+    this.dispatchEvent(evt('load'));
   }
 
   draw = () => {

@@ -1,6 +1,7 @@
 import { glMatrix } from 'gl-matrix'
 // import { EventEmitter } from 'events'
 import { Game } from './Game'
+import { evt } from './Util'
 import { Replay } from './Replay/Replay'
 import { ReplayState } from './Replay/ReplayState'
 
@@ -76,7 +77,7 @@ export class ReplayPlayer extends EventTarget{
     }
 
     // this.events.emit('play')
-    this.dispatchEvent(new CustomEvent('play'));
+    this.dispatchEvent(evt('play'));
   }
 
   pause() {
@@ -85,13 +86,13 @@ export class ReplayPlayer extends EventTarget{
     }
 
     // this.events.emit('pause')
-    this.dispatchEvent(new CustomEvent('pause'));
+    this.dispatchEvent(evt('pause'));
   }
 
   stop() {
     this.reset()
     // this.events.emit('stop')
-    this.dispatchEvent(new CustomEvent('stop'));
+    this.dispatchEvent(evt('stop'));
   }
 
   speedUp() {

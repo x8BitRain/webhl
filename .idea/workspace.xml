@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f894a99-7574-403b-bc20-238121f71be9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Loading/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Loading/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/ReplayMode/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/ReplayMode/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Time/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Time/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Replay/ReplayMap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Replay/ReplayMap.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/ReplayPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/ReplayPlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/SoundSystem.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/SoundSystem.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Util.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +73,7 @@
       <workItem from="1612133978788" duration="2684000" />
       <workItem from="1612137230657" duration="4919000" />
       <workItem from="1612221340331" duration="4002000" />
-      <workItem from="1612264414173" duration="11235000" />
+      <workItem from="1612264414173" duration="12076000" />
     </task>
     <servers />
   </component>
