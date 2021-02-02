@@ -1,5 +1,4 @@
-import { h, Component } from "preact";
-
+import { h, Component, Fragment } from "preact";
 import HLViewer from "./hlviewerjs";
 
 
@@ -20,14 +19,15 @@ class App extends Component {
         sounds:  'assets/sounds'
       }
     })
-    hlv.load('1.dem')
+    hlv ? hlv.load('tas.dem') : null;
   }
 
 
   render() {
+    // @ts-ignore
     return (
       <div id="app">
-        <div id="hlv-target"></div>
+        <div id="hlv-target" />
       </div>
     );
   }

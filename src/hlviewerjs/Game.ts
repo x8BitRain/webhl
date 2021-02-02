@@ -134,7 +134,11 @@ export class Game {
 
     this.config = params.config
     this.loader = new Loader(this.config)
-    this.loader.events.addListener('loadall', this.onLoadAll)
+
+    // this.loader.events.addListener('loadAll', this.onLoadAll)
+    this.loader.addEventListener('loadAll', (event) => {
+      this.onLoadAll((<CustomEvent>event).detail.loader)
+    })
 
     document.addEventListener('touchstart', this.onTouchStart, false)
     document.addEventListener('touchend', this.onTouchEnd, false)

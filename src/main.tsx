@@ -1,8 +1,10 @@
-import { h, render } from "preact";
-import App from "./app";
-import "./index.css";
+import { h, render, Fragment } from 'preact'
+// @ts-ignore
+import App from './app'
+import './index.css'
 
-const el = document.getElementById("app");
+// @ts-ignore
+const el = document.getElementById('app');
 if (el) {
-  render(<App />, el);
+  render(<App />, el)
 }

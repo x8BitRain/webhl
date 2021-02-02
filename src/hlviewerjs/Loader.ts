@@ -93,7 +93,7 @@ export type LoadItem =
   | LoadItemSound
   | LoadItemSprite
 
-export class Loader {
+export class Loader extends EventTarget {
   config: Config
 
   replay?: LoadItemReplay
@@ -105,6 +105,7 @@ export class Loader {
   events: EventEmitter
 
   constructor(config: Config) {
+    super()
     this.config = config
 
     this.replay = undefined
@@ -162,7 +163,8 @@ export class Loader {
       }
     }
 
-    this.events.emit('loadall', this)
+    this.dispatchEvent(new CustomEvent('loadAll', { detail: { loader: this }  }));
+    //this.events.emit('loadall', this)
   }
 
   load(name: string) {
