@@ -6,18 +6,13 @@
     "build": "vite build"
   },
   "dependencies": {
-    "events": "^3.2.0",
-    "path": "^0.12.7",
-    "preact": "^10.4.1",
-    "typestyle": "^2.1.0"
   },
   "devDependencies": {
-    "@prefresh/vite": "^1.2.1",
+    "preact": "^10.4.1",
+    "typestyle": "^2.1.0",
     "vite": "^1.0.0-rc.13",
+    "@prefresh/vite": "^1.2.1",
     "@types/gl-matrix": "^2.4.1",
-    "@types/node": "^10.5.4",
-    "@types/pngjs": "^3.3.2",
-    "gl-matrix": "^2.7.1",
-    "pngjs": "^3.3.3"
+    "gl-matrix": "^2.7.1"
   }
 }

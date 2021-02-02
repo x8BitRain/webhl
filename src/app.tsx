@@ -19,7 +19,7 @@ class App extends Component {
         sounds:  'assets/sounds'
       }
     })
-    hlv ? hlv.load('tas.dem') : null;
+    hlv ? hlv.load('kz_ea_highblock.dem') : null;
   }
 
 

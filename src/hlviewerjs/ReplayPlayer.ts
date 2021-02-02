@@ -1,5 +1,5 @@
 import { glMatrix } from 'gl-matrix'
-import { EventEmitter } from 'events'
+// import { EventEmitter } from 'events'
 import { Game } from './Game'
 import { Replay } from './Replay/Replay'
 import { ReplayState } from './Replay/ReplayState'
@@ -13,11 +13,11 @@ const updateGame = (game: Game, state: ReplayState) => {
   game.camera.rotation[2] = glMatrix.toRadian(state.cameraRot[2])
 }
 
-export class ReplayPlayer {
+export class ReplayPlayer extends EventTarget{
   game: Game
   state: ReplayState
   replay: any
-  events: EventEmitter
+  // events: EventEmitter
 
   currentMap: number = 0
   currentChunk: number = 0
@@ -28,11 +28,12 @@ export class ReplayPlayer {
   speed: number = 1
 
   constructor(game: Game) {
+    super();
     this.reset()
     this.game = game
     this.state = new ReplayState()
     this.replay = null
-    this.events = new EventEmitter()
+    // this.events = new EventEmitter()
   }
 
   reset() {
@@ -53,11 +54,13 @@ export class ReplayPlayer {
   }
 
   on(eventName: string, callback: any) {
-    return this.events.on(eventName, callback)
+    // return this.events.on(eventName, callback)
+    return this.addEventListener(eventName, callback)
   }
 
   off(eventName: string, callback: any) {
-    this.events.removeListener(eventName, callback)
+    // this.events.removeListener(eventName, callback)
+    this.removeEventListener(eventName, callback)
   }
 
   changeReplay(replay: Replay) {
@@ -72,7 +75,8 @@ export class ReplayPlayer {
       this.isPaused = false
     }
 
-    this.events.emit('play')
+    // this.events.emit('play')
+    this.dispatchEvent(new CustomEvent('play'));
   }
 
   pause() {
@@ -80,12 +84,14 @@ export class ReplayPlayer {
       this.isPaused = true
     }
 
-    this.events.emit('pause')
+    // this.events.emit('pause')
+    this.dispatchEvent(new CustomEvent('pause'));
   }
 
   stop() {
     this.reset()
-    this.events.emit('stop')
+    // this.events.emit('stop')
+    this.dispatchEvent(new CustomEvent('stop'));
   }
 
   speedUp() {

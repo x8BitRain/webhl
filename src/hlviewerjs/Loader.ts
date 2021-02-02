@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events'
+// import { EventEmitter } from 'events'
 import { Bsp } from './Bsp'
 import { Sound } from './Sound'
 import { extname } from './Util'
@@ -102,7 +102,7 @@ export class Loader extends EventTarget {
   wads: LoadItemWad[]
   sounds: LoadItemSound[]
   sprites: { [name: string]: LoadItemSprite } = {}
-  events: EventEmitter
+  // events: EventEmitter
 
   constructor(config: Config) {
     super()
@@ -114,10 +114,10 @@ export class Loader extends EventTarget {
     this.wads = []
     this.sounds = []
 
-    this.events = new EventEmitter()
-    this.events.addListener('error', (err: any) => {
-      console.error(err)
-    })
+    // this.events = new EventEmitter()
+    // this.addListener('error', (err: any) => {
+    //   console.error(err)
+    // })
   }
 
   clear() {
@@ -174,20 +174,22 @@ export class Loader extends EventTarget {
     } else if (extension === '.bsp') {
       this.loadMap(name)
     } else {
-      this.events.emit('error', 'Invalid file extension', name)
+      console.error('Invalid file extension', name)
     }
   }
 
   async loadReplay(name: string) {
     this.replay = new LoadItemReplay(name)
-    this.events.emit('loadstart', this.replay)
+    // this.events.emit('loadstart', this.replay)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: this.replay }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.replay) {
         this.replay.progress = progress
       }
 
-      this.events.emit('progress', this.replay)
+      // this.events.emit('progress', this.replay)
+      this.dispatchEvent(new CustomEvent('progress', { detail: { item: this.replay }  }))
     }
 
     const replayPath = this.config.getReplaysPath()
@@ -199,7 +201,7 @@ export class Loader extends EventTarget {
       if (this.replay) {
         this.replay.error()
       }
-      this.events.emit('error', err, this.replay)
+      console.error(err, this.replay)
     })
 
     if (this.replay.isError()) {
@@ -218,20 +220,23 @@ export class Loader extends EventTarget {
       }
     })
 
-    this.events.emit('load', this.replay)
+    // this.events.emit('load', this.replay)
+    this.dispatchEvent(new CustomEvent('load', { detail: { item: this.replay }  }))
     this.checkStatus()
   }
 
   async loadMap(name: string) {
     this.map = new LoadItemBsp(name)
-    this.events.emit('loadstart', this.map)
+    // this.events.emit('loadstart', this.map)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: this.map }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.map) {
         this.map.progress = progress
       }
 
-      this.events.emit('progress', this.map)
+      // this.events.emit('progress', this.map)
+      this.dispatchEvent(new CustomEvent('progress', { detail: { item: this.map }  }))
     }
 
     const mapsPath = this.config.getMapsPath()
@@ -244,7 +249,7 @@ export class Loader extends EventTarget {
         this.map.error()
       }
 
-      this.events.emit('error', err, this.map)
+      console.error(err, this.map)
     })
 
     if (this.map.isError()) {
@@ -281,18 +286,21 @@ export class Loader extends EventTarget {
       await Promise.all(wadPromises)
     }
 
-    this.events.emit('load', this.map)
+    // this.events.emit('load', this.map)
+    this.dispatchEvent(new CustomEvent('load', { detail: { item: this.map }  }))
     this.checkStatus()
   }
 
   async loadSprite(name: string) {
     const item = new LoadItemSprite(name)
     this.sprites[name] = item
-    this.events.emit('loadstart', item)
+    // this.events.emit('loadstart', item)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
-      this.events.emit('progress', item)
+      // this.events.emit('progress', item)
+      this.dispatchEvent(new CustomEvent('progress', { detail: { item }  }))
     }
 
     const buffer = await xhr(`${this.config.getBasePath()}/${name}`, {
@@ -301,7 +309,7 @@ export class Loader extends EventTarget {
       progressCallback
     }).catch((err: any) => {
       item.error()
-      this.events.emit('error', err, item)
+      console.error(err, item)
       this.checkStatus()
     })
 
@@ -311,18 +319,21 @@ export class Loader extends EventTarget {
 
     const sprite = Sprite.parse(buffer)
     item.done(sprite)
-    this.events.emit('load', item)
+    // this.events.emit('load', item)
+    this.dispatchEvent(new CustomEvent('load', { detail: { item }  }))
     this.checkStatus()
   }
 
   async loadSky(name: string) {
     const item = new LoadItemSky(name)
     this.skies.push(item)
-    this.events.emit('loadstart', item)
+    // this.events.emit('loadstart', item)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
-      this.events.emit('progress', item)
+      // this.events.emit('progress', item)
+      this.dispatchEvent(new CustomEvent('progress', { detail: { item }  }))
     }
 
     const skiesPath = this.config.getSkiesPath()
@@ -332,7 +343,7 @@ export class Loader extends EventTarget {
       progressCallback
     }).catch((err: any) => {
       item.error()
-      this.events.emit('error', err, item)
+      console.error(err, item)
       this.checkStatus()
     })
 
@@ -342,18 +353,21 @@ export class Loader extends EventTarget {
 
     const skyImage = Tga.parse(buffer, name)
     item.done(skyImage)
-    this.events.emit('load', item)
+    // this.events.emit('load', item)
+    this.dispatchEvent(new CustomEvent('load', { detail: { item }  }))
     this.checkStatus()
   }
 
   async loadWad(name: string) {
     const wadItem = new LoadItemWad(name)
     this.wads.push(wadItem)
-    this.events.emit('loadstart', wadItem)
+    // this.events.emit('loadstart', wadItem)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: wadItem }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       wadItem.progress = progress
-      this.events.emit('progress', wadItem)
+      // this.events.emit('progress', wadItem)
+      this.dispatchEvent(new CustomEvent('progress', { detail: { item: wadItem }  }))
     }
 
     const wadsPath = this.config.getWadsPath()
@@ -363,7 +377,7 @@ export class Loader extends EventTarget {
       progressCallback
     }).catch((err: any) => {
       wadItem.error()
-      this.events.emit('error', err, wadItem)
+      console.error(err, wadItem)
       this.checkStatus()
     })
 
@@ -394,18 +408,21 @@ export class Loader extends EventTarget {
       })
     })
 
-    this.events.emit('load', wadItem)
+    // this.events.emit('load', wadItem)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: wadItem }  }))
     this.checkStatus()
   }
 
   async loadSound(name: string, index: number) {
     const sound = new LoadItemSound(name)
     this.sounds.push(sound)
-    this.events.emit('loadstart', sound)
+    // this.events.emit('loadstart', sound)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: sound }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       sound.progress = progress
-      this.events.emit('progress', sound)
+      // this.events.emit('progress', sound)
+      this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: sound }  }))
     }
 
     const soundsPath = this.config.getSoundsPath()
@@ -415,7 +432,7 @@ export class Loader extends EventTarget {
       progressCallback
     }).catch((err: any) => {
       sound.error()
-      this.events.emit('error', err, sound)
+      console.error(err, sound)
       this.checkStatus()
     })
 
@@ -425,7 +442,7 @@ export class Loader extends EventTarget {
 
     const data = await Sound.create(buffer).catch((err: any) => {
       sound.error()
-      this.events.emit('error', err, sound)
+      console.error(err, sound)
       this.checkStatus()
     })
 
@@ -436,23 +453,24 @@ export class Loader extends EventTarget {
     data.index = index
     data.name = name
     sound.done(data)
-    this.events.emit('load', sound)
+    // this.events.emit('load', sound)
+    this.dispatchEvent(new CustomEvent('loadstart', { detail: { item: sound }  }))
     this.checkStatus()
   }
 
-  addLoadStartListener(listener: (item: LoadItem) => void) {
-    this.events.addListener('loadstart', listener)
-  }
+  // addLoadStartListener(listener: (item: LoadItem) => void) {
+  //   return this.addEventListener('loadstart', listener)
+  // }
 
-  removeLoadStartListener(listener: (item: LoadItem) => void) {
-    this.events.removeListener('loadstart', listener)
-  }
+  // removeLoadStartListener(listener: (item: LoadItem) => void) {
+  //   this.events.removeListener('loadstart', listener)
+  // }
 
-  addProgressListener(listener: (item: LoadItem) => void) {
-    this.events.addListener('progress', listener)
-  }
+  // addProgressListener(listener: (item: LoadItem) => void) {
+  //   this.events.addListener('progress', listener)
+  // }
 
-  removeProgressListener(listener: (item: LoadItem) => void) {
-    this.events.removeListener('progress', listener)
-  }
+  // removeProgressListener(listener: (item: LoadItem) => void) {
+  //   this.events.removeListener('progress', listener)
+  // }
 }
