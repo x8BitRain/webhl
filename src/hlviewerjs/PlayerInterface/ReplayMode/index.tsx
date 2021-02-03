@@ -22,11 +22,8 @@ interface ReplayModeProps {
 export class ReplayMode extends Component<ReplayModeProps> {
   componentDidMount() {
     this.props.game.player.on('play', this.onPlayStateChange)
-    // this.props.game.player.addEventListener('play', this.onPlayStateChange)
     this.props.game.player.on('pause', this.onPlayStateChange)
-    // this.props.game.player.addEventListener('pause', this.onPlayStateChange)
     this.props.game.player.on('stop', this.onPlayStateChange)
-    // this.props.game.player.addEventListener('stop', this.onPlayStateChange)
   }
 
   componentWillUnmount() {

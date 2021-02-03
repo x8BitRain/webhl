@@ -1,4 +1,3 @@
-// import { EventEmitter } from 'events';
 import { Bsp } from './Bsp'
 import { evt } from './Util'
 import * as Time from './Time'
@@ -111,7 +110,6 @@ export class Game extends EventTarget {
   entities: any[] = []
   sounds: Sound[]
   soundSystem: SoundSystem
-  // events: EventEmitter
   player: ReplayPlayer
 
   canvas: HTMLCanvasElement
@@ -137,7 +135,6 @@ export class Game extends EventTarget {
     this.config = params.config
     this.loader = new Loader(this.config)
 
-    // this.loader.events.addListener('loadAll', this.onLoadAll)
     this.loader.addEventListener('loadAll', (event) => {
       this.onLoadAll((<CustomEvent>event).detail.loader)
     })
@@ -162,7 +159,6 @@ export class Game extends EventTarget {
     this.mode = PlayerMode.FREE
 
     this.player = new ReplayPlayer(this)
-    // this.events = new EventEmitter()
 
     this.mapName = ''
   }
@@ -220,9 +216,8 @@ export class Game extends EventTarget {
 
   setTitle(title: string) {
     this.title = title
-    console.log(title);
-    // this.events.emit('titlechange', title)
-    this.dispatchEvent(evt('titlechange'));
+
+    this.dispatchEvent(evt('titlechange', { detail: { item: title }}));
   }
 
   getTitle() {
@@ -266,8 +261,7 @@ export class Game extends EventTarget {
 
     this.changeMap(map)
 
-    // this.events.emit('load', loader)
-    this.dispatchEvent(evt('load'));
+    this.dispatchEvent(evt('load', { detail: { item: loader } }));
   }
 
   draw = () => {
@@ -327,7 +321,7 @@ export class Game extends EventTarget {
   }
 
   update(dt: number) {
-    //this.events.emit('preupdate', this)
+    this.dispatchEvent(evt('preupdate', { detail: { item: this } }));
 
     const camera = this.camera
     const keyboard = this.keyboard
@@ -391,7 +385,7 @@ export class Game extends EventTarget {
     mouse.delta[0] = 0
     mouse.delta[1] = 0
 
-    //this.events.emit('postupdate', this)
+    this.dispatchEvent(evt('postupdate', { detail: { item: this } }));
   }
 
   on(eventName: string, callback: (...args: any[]) => void) {

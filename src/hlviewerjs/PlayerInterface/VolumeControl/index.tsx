@@ -27,7 +27,6 @@ export class VolumeControl extends Component<
   }
 
   componentDidMount() {
-    // this.props.game.soundSystem.events.on('volumeChange', this.onVolumeChange)
     this.props.game.soundSystem.addEventListener('volumeChange',() => {
       this.onVolumeChange()
     })

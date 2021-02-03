@@ -1,4 +1,3 @@
-// import { EventEmitter } from 'events'
 import { Bsp } from './Bsp'
 import { Sound } from './Sound'
 import { Config } from './Config'
@@ -102,7 +101,6 @@ export class Loader extends EventTarget {
   wads: LoadItemWad[]
   sounds: LoadItemSound[]
   sprites: { [name: string]: LoadItemSprite } = {}
-  // events: EventEmitter
 
   constructor(config: Config) {
     super()
@@ -113,11 +111,6 @@ export class Loader extends EventTarget {
     this.skies = []
     this.wads = []
     this.sounds = []
-
-    // this.events = new EventEmitter()
-    // this.addListener('error', (err: any) => {
-    //   console.error(err)
-    // })
   }
 
   clear() {
@@ -164,7 +157,6 @@ export class Loader extends EventTarget {
     }
 
     this.dispatchEvent(evt('loadAll', { detail: { loader: this }  }));
-    //this.events.emit('loadall', this)
   }
 
   load(name: string) {
@@ -180,7 +172,7 @@ export class Loader extends EventTarget {
 
   async loadReplay(name: string) {
     this.replay = new LoadItemReplay(name)
-    // this.events.emit('loadstart', this.replay)
+
     this.dispatchEvent(evt('loadstart', { detail: { item: this.replay }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
@@ -188,7 +180,6 @@ export class Loader extends EventTarget {
         this.replay.progress = progress
       }
 
-      // this.events.emit('progress', this.replay)
       this.dispatchEvent(evt('progress', { detail: { item: this.replay }  }))
     }
 
@@ -220,14 +211,12 @@ export class Loader extends EventTarget {
       }
     })
 
-    // this.events.emit('load', this.replay)
     this.dispatchEvent(evt('load', { detail: { item: this.replay }  }))
     this.checkStatus()
   }
 
   async loadMap(name: string) {
     this.map = new LoadItemBsp(name)
-    // this.events.emit('loadstart', this.map)
     this.dispatchEvent(evt('loadstart', { detail: { item: this.map }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
@@ -235,7 +224,6 @@ export class Loader extends EventTarget {
         this.map.progress = progress
       }
 
-      // this.events.emit('progress', this.map)
       this.dispatchEvent(evt('progress', { detail: { item: this.map }  }))
     }
 
@@ -286,7 +274,6 @@ export class Loader extends EventTarget {
       await Promise.all(wadPromises)
     }
 
-    // this.events.emit('load', this.map)
     this.dispatchEvent(evt('load', { detail: { item: this.map }  }))
     this.checkStatus()
   }
@@ -294,12 +281,12 @@ export class Loader extends EventTarget {
   async loadSprite(name: string) {
     const item = new LoadItemSprite(name)
     this.sprites[name] = item
-    // this.events.emit('loadstart', item)
+
     this.dispatchEvent(evt('loadstart', { detail: { item }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
-      // this.events.emit('progress', item)
+
       this.dispatchEvent(evt('progress', { detail: { item }  }))
     }
 
@@ -319,7 +306,7 @@ export class Loader extends EventTarget {
 
     const sprite = Sprite.parse(buffer)
     item.done(sprite)
-    // this.events.emit('load', item)
+
     this.dispatchEvent(evt('load', { detail: { item }  }))
     this.checkStatus()
   }
@@ -327,12 +314,10 @@ export class Loader extends EventTarget {
   async loadSky(name: string) {
     const item = new LoadItemSky(name)
     this.skies.push(item)
-    // this.events.emit('loadstart', item)
     this.dispatchEvent(evt('loadstart', { detail: { item }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
-      // this.events.emit('progress', item)
       this.dispatchEvent(evt('progress', { detail: { item }  }))
     }
 
@@ -353,7 +338,7 @@ export class Loader extends EventTarget {
 
     const skyImage = Tga.parse(buffer, name)
     item.done(skyImage)
-    // this.events.emit('load', item)
+
     this.dispatchEvent(evt('load', { detail: { item }  }))
     this.checkStatus()
   }
@@ -361,12 +346,10 @@ export class Loader extends EventTarget {
   async loadWad(name: string) {
     const wadItem = new LoadItemWad(name)
     this.wads.push(wadItem)
-    // this.events.emit('loadstart', wadItem)
     this.dispatchEvent(evt('loadstart', { detail: { item: wadItem }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       wadItem.progress = progress
-      // this.events.emit('progress', wadItem)
       this.dispatchEvent(evt('progress', { detail: { item: wadItem }  }))
     }
 
@@ -408,7 +391,6 @@ export class Loader extends EventTarget {
       })
     })
 
-    // this.events.emit('load', wadItem)
     this.dispatchEvent(evt('loadstart', { detail: { item: wadItem }  }))
     this.checkStatus()
   }
@@ -416,12 +398,12 @@ export class Loader extends EventTarget {
   async loadSound(name: string, index: number) {
     const sound = new LoadItemSound(name)
     this.sounds.push(sound)
-    // this.events.emit('loadstart', sound)
+
     this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       sound.progress = progress
-      // this.events.emit('progress', sound)
+
       this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
     }
 
@@ -453,24 +435,8 @@ export class Loader extends EventTarget {
     data.index = index
     data.name = name
     sound.done(data)
-    // this.events.emit('load', sound)
+
     this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
     this.checkStatus()
   }
-
-  // addLoadStartListener(listener: (item: LoadItem) => void) {
-  //   return this.addEventListener('loadstart', listener)
-  // }
-
-  // removeLoadStartListener(listener: (item: LoadItem) => void) {
-  //   this.events.removeListener('loadstart', listener)
-  // }
-
-  // addProgressListener(listener: (item: LoadItem) => void) {
-  //   this.events.addListener('progress', listener)
-  // }
-
-  // removeProgressListener(listener: (item: LoadItem) => void) {
-  //   this.events.removeListener('progress', listener)
-  // }
 }

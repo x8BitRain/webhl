@@ -1,4 +1,3 @@
-// import { EventEmitter } from 'events'
 import { evt } from './Util'
 import { Sound } from './Sound'
 
@@ -12,13 +11,10 @@ export class SoundSystem extends EventTarget {
   channels: any[]
   masterGain: GainNode
   preMuteVolume: number
-  //volumeEvent: Event
 
   constructor() {
     super()
     this.context = audioContext
-
-    // this.volumeEvent = new Event('volumeChange')
 
     const volume = parseFloat(localStorage.getItem('volume') || '0.3')
     localStorage.setItem('volume', volume.toString())
@@ -77,8 +73,8 @@ export class SoundSystem extends EventTarget {
     this.masterGain.gain.value = value
 
     localStorage.setItem('volume', value.toString())
-    this.dispatchEvent(evt('volumeChange'));
-    //this.events.emit('volumeChange', value)
+
+    this.dispatchEvent(evt('volumeChange', { detail: { item: value } }));
   }
 
   toggleMute() {
