@@ -167,9 +167,9 @@ export class Game extends EventTarget {
     return this.canvas
   }
 
-  load(name: string) {
+  load(demo: string | object) {
     this.dispatchEvent(evt('loadstart'));
-    this.loader.load(name)
+    this.loader.load(demo)
   }
 
   changeMap(map: Bsp) {

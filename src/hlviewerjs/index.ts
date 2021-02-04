@@ -13,8 +13,8 @@ class HLV {
     this.game = game
   }
 
-  load(name: string) {
-    this.game.load(name)
+  load(demo: string | object) {
+    this.game.load(demo)
   }
 
   setTitle(title: string) {
