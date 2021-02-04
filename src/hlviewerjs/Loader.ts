@@ -17,12 +17,12 @@ enum LoadItemStatus {
 }
 
 class LoadItemBase<T> {
-  name: string
+  name: string | object
   progress: number
   status: LoadItemStatus
   data: T | null
 
-  constructor(name: string) {
+  constructor(name: string | object) {
     this.name = name
     this.progress = 0
     this.status = LoadItemStatus.Loading
@@ -159,19 +159,24 @@ export class Loader extends EventTarget {
     this.dispatchEvent(evt('loadAll', { detail: { loader: this }  }));
   }
 
-  load(name: string) {
-    const extension = extname(name)
-    if (extension === '.dem') {
-      this.loadReplay(name)
-    } else if (extension === '.bsp') {
-      this.loadMap(name)
+  load(demo: string | object) {
+    if (typeof demo === 'string') {
+      const extension = extname(demo)
+      if (extension === '.dem') {
+        this.loadReplay(demo)
+      } else if (extension === '.bsp') {
+        this.loadMap(demo)
+      } else {
+        console.error('Invalid file extension', demo)
+      }
     } else {
-      console.error('Invalid file extension', name)
+      this.loadReplay(demo)
     }
   }
 
-  async loadReplay(name: string) {
-    this.replay = new LoadItemReplay(name)
+  async loadReplay(demo: string | object) {
+    let buffer;
+    this.replay = new LoadItemReplay(demo)
 
     this.dispatchEvent(evt('loadstart', { detail: { item: this.replay }  }))
 
@@ -184,16 +189,22 @@ export class Loader extends EventTarget {
     }
 
     const replayPath = this.config.getReplaysPath()
-    const buffer = await xhr(`${replayPath}/${name}`, {
-      method: 'GET',
-      isBinary: true,
-      progressCallback
-    }).catch((err: any) => {
-      if (this.replay) {
-        this.replay.error()
-      }
-      console.error(err, this.replay)
-    })
+
+    if (typeof demo === 'string') {
+      buffer = await xhr(`${replayPath}/${demo}`, {
+        method: 'GET',
+        isBinary: true,
+        progressCallback
+      }).catch((err: any) => {
+        if (this.replay) {
+          this.replay.error()
+        }
+        console.error(err, this.replay)
+      })
+    } else {
+      buffer = demo;
+    }
+
 
     if (this.replay.isError()) {
       return
@@ -202,7 +213,7 @@ export class Loader extends EventTarget {
     const replay = await Replay.parseIntoChunks(buffer)
     this.replay.done(replay)
 
-    this.loadMap(replay.maps[0].name + '.bsp')
+    await this.loadMap(replay.maps[0].name + '.bsp')
 
     const sounds = replay.maps[0].resources.sounds
     sounds.forEach((sound: any) => {
