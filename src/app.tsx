@@ -9,10 +9,6 @@ class App extends Component {
     this.state = { errored: false };
   }
 
-  hideUploadDialogue() {
-    this.fileUpload.current.style.opacity = 0;
-  }
-
   componentDidMount() {
     const hlv = HLViewer.init('#hlv-target', {
       paths: {
@@ -42,7 +38,7 @@ class App extends Component {
     // @ts-ignore
     return (
       <>
-        <div class="window" id="fileUpload" name="Upload Demo">
+        <div class="window" id="fileUpload" name="Upload Demo" accept=".dem">
           <input type="file" ref={this.fileUpload} />
         </div>
         <div id="app">

@@ -5,37 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f894a99-7574-403b-bc20-238121f71be9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/checkmark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/close2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/download.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/download_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/minimize.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/minimize2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/radio_off.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/radio_on.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/resize.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/scroll_down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/scroll_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/scroll_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/scroll_up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/sliderticks.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/steamico.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/greensteam.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webhl.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/screenshot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Time.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Time.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
