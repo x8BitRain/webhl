@@ -621,6 +621,11 @@ brotli-size@^4.0.0:
   dependencies:
     duplexer "0.1.1"
 
+browser-fs-access@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/browser-fs-access/-/browser-fs-access-0.13.1.tgz#41da8f61dcc6f7597b76cbaa0f96c9eeedf7d25d"
+  integrity sha512-62bg/rd018yTHMmt0nvJ8W5aJ5+2MvpxCEsgpw9wbsGiEJqs1M+HgvTHSJjyef+vEfJxDFht3ykBFQ5BiFPIbA==
+
 buffer-from@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"

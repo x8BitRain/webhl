@@ -5,7 +5,9 @@
     "dev": "vite",
     "build": "vite build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "browser-fs-access": "^0.13.1"
+  },
   "devDependencies": {
     "@prefresh/vite": "^1.2.1",
     "@types/gl-matrix": "^2.4.1",
