@@ -156,11 +156,11 @@ export class FrameDataReader {
 
   static stuffText(r: Reader) {
     let message = r.str()
-    let commands = message.split(';').map(command => {
+    let commands = message.split(';').map((command) => {
       let args = command
         .split(/\s*("[^"]+"|[^\s"]+)/)
-        .map(arg => arg.replace(/^"(.*)"$/, '$1').trim())
-        .filter(arg => arg)
+        .map((arg) => arg.replace(/^"(.*)"$/, '$1').trim())
+        .filter((arg) => arg)
 
       let func = args[0]
       let params = args.slice(1)

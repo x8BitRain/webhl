@@ -19,7 +19,7 @@ export class ReplayMap {
   }
 
   setResources(resources: any[]) {
-    resources.forEach(res => {
+    resources.forEach((res) => {
       switch (res.type) {
         case 0: {
           res.used = false

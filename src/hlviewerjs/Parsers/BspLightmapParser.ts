@@ -111,7 +111,7 @@ export class BspLightmapParser {
     offset: number,
     width: number,
     height: number
-  ): {x: number, y: number} | null {
+  ): { x: number; y: number } | null {
     if (height <= 0 || width <= 0) {
       return null
     }

@@ -1,38 +1,40 @@
-import { h, Component, Fragment, createRef } from "preact"
-import HLViewer from "./hlviewerjs"
-import FileLoader from "./components/FileLoader";
+import { h, Component, Fragment, createRef } from 'preact'
+import HLViewer from './hlviewerjs'
+import FileLoader from './components/FileLoader'
 
 class App extends Component {
   constructor() {
-    super();
-    this.state = { errored: false };
+    super()
+    this.state = { errored: false }
   }
 
   initHLV = (itemName: string, demos: [], type: string) => {
     const hlv = HLViewer.init('#hlv-target', {
       paths: {
-        base:    '/',
+        base: '/',
         replays: 'assets/demos',
-        maps:    'assets/maps',
-        wads:    'assets/wads',
-        skies:   'assets/skies',
-        sounds:  'assets/sounds'
+        maps: 'assets/maps',
+        wads: 'assets/wads',
+        skies: 'assets/skies',
+        sounds: 'assets/sounds'
       }
     })
     if (type === 'demo') {
-      this.startDemo(hlv, demos, itemName);
+      this.startDemo(hlv, demos, itemName)
     } else {
       // not ready yet
     }
   }
 
   startDemo = (hlv: any, demos: [], demoName: string) => {
-    const targetDemo = demos.find(demo => demo.name.match(demoName));
-    let reader = new FileReader();
+    const targetDemo = demos.find((demo) => demo.name.match(demoName))
+    let reader = new FileReader()
     reader.onload = function () {
       let arrayBuffer = this.result
-      hlv ? hlv.load(arrayBuffer as object, 'demo') : console.error('HLViewer not Instantiated yet')
-      console.log(hlv);
+      hlv
+        ? hlv.load(arrayBuffer as object, 'demo')
+        : console.error('HLViewer not Instantiated yet')
+      console.log(hlv)
     }
     targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
   }
@@ -61,7 +63,6 @@ class App extends Component {
     // }, false);
   }
 
-
   render() {
     // @ts-ignore
     return (
@@ -71,8 +72,8 @@ class App extends Component {
           <div id="hlv-target" />
         </div>
       </>
-    );
+    )
   }
 }
 
-export default App;
+export default App

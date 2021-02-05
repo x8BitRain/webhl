@@ -27,7 +27,19 @@ class HLV {
 }
 
 namespace HLViewer {
-  export function init(rootSelector: string, params: { paths: { replays: string; maps: string; sounds: string; skies: string; wads: string; base: string } }) {
+  export function init(
+    rootSelector: string,
+    params: {
+      paths: {
+        replays: string
+        maps: string
+        sounds: string
+        skies: string
+        wads: string
+        base: string
+      }
+    }
+  ) {
     const node = document.querySelector(rootSelector)
     if (!node) {
       return null

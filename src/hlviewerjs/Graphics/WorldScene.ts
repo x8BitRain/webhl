@@ -238,12 +238,12 @@ export class WorldScene {
     const sortedSceneInfo: SceneInfo = {
       data: new Float32Array(sceneInfo.data),
       length: sceneInfo.length,
-      models: sceneInfo.models.map(model => ({
+      models: sceneInfo.models.map((model) => ({
         origin: [...model.origin],
         offset: model.offset,
         length: model.length,
         isTransparent: model.isTransparent,
-        faces: model.faces.map(face => ({
+        faces: model.faces.map((face) => ({
           offset: face.offset,
           length: face.length,
           textureIndex: face.textureIndex
@@ -575,7 +575,7 @@ export class WorldScene {
           gl.drawArrays(gl.TRIANGLES, face.offset / 7, face.length / 7)
         }
       } else if (entity.model.indexOf('.spr') > -1) {
-        const texture = this.textures.find(a => a.name === entity.model)
+        const texture = this.textures.find((a) => a.name === entity.model)
         const sprite = this.sprites[entity.model]
         if (texture && sprite) {
           const origin = entity.origin
@@ -855,7 +855,7 @@ export class WorldScene {
           }
         }
       } else if (entity.model.indexOf('.spr') > -1) {
-        const texture = this.textures.find(a => a.name === entity.model)
+        const texture = this.textures.find((a) => a.name === entity.model)
         const sprite = this.sprites[entity.model]
         if (texture && sprite) {
           const origin = entity.origin

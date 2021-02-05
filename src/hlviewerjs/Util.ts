@@ -12,6 +12,9 @@ export function extname(path: string) {
   }
 }
 
-export function evt(event: string, payload: { detail: any} | {} = {}): CustomEvent {
-  return new CustomEvent(event, payload ? payload : {});
+export function evt(
+  event: string,
+  payload: { detail: any } | {} = {}
+): CustomEvent {
+  return new CustomEvent(event, payload ? payload : {})
 }

@@ -25,7 +25,7 @@ export function xhr(url: string, params: XhrParams): Promise<any> {
     }
 
     if (isBinary && progressCallback) {
-      request.addEventListener('progress', event => {
+      request.addEventListener('progress', (event) => {
         if (event.lengthComputable) {
           progressCallback(request, event.loaded / event.total)
         } else {

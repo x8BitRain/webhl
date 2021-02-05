@@ -128,7 +128,7 @@ export class Game extends EventTarget {
     worldScene: WorldScene
     skyScene: SkyScene
   }) {
-    super();
+    super()
     this.sounds = []
     this.soundSystem = new SoundSystem()
 
@@ -168,7 +168,7 @@ export class Game extends EventTarget {
   }
 
   load(demo: string | object) {
-    this.dispatchEvent(evt('loadstart'));
+    this.dispatchEvent(evt('loadstart'))
     this.loader.load(demo)
   }
 
@@ -184,7 +184,9 @@ export class Game extends EventTarget {
 
     this.entities = map.entities
 
-    const spawn = map.entities.find(e => e['classname'] === 'info_player_start')
+    const spawn = map.entities.find(
+      (e) => e['classname'] === 'info_player_start'
+    )
 
     if (spawn) {
       this.camera.position[0] = spawn.origin[0]
@@ -211,13 +213,13 @@ export class Game extends EventTarget {
 
   changeMode(mode: PlayerMode) {
     this.mode = mode
-    this.dispatchEvent(evt('modechange'));
+    this.dispatchEvent(evt('modechange'))
   }
 
   setTitle(title: string) {
     this.title = title
 
-    this.dispatchEvent(evt('titlechange', { detail: { item: title }}));
+    this.dispatchEvent(evt('titlechange', { detail: { item: title } }))
   }
 
   getTitle() {
@@ -237,11 +239,11 @@ export class Game extends EventTarget {
     const map = loader.map.data
     const skies = loader.skies
     let skiesValid = true
-    skies.forEach(sky => {
+    skies.forEach((sky) => {
       skiesValid = skiesValid && sky.isDone()
     })
     if (skiesValid) {
-      skies.forEach(sky => (sky.data ? map.skies.push(sky.data) : 0))
+      skies.forEach((sky) => (sky.data ? map.skies.push(sky.data) : 0))
     }
 
     // add sprites
@@ -252,7 +254,7 @@ export class Game extends EventTarget {
     })
 
     if (loader.sounds.length > 0) {
-      loader.sounds.forEach(sound => {
+      loader.sounds.forEach((sound) => {
         if (sound.data) {
           this.sounds.push(sound.data)
         }
@@ -261,7 +263,7 @@ export class Game extends EventTarget {
 
     this.changeMap(map)
 
-    this.dispatchEvent(evt('load', { detail: { item: loader } }));
+    this.dispatchEvent(evt('load', { detail: { item: loader } }))
   }
 
   draw = () => {
@@ -321,7 +323,7 @@ export class Game extends EventTarget {
   }
 
   update(dt: number) {
-    this.dispatchEvent(evt('preupdate', { detail: { item: this } }));
+    this.dispatchEvent(evt('preupdate', { detail: { item: this } }))
 
     const camera = this.camera
     const keyboard = this.keyboard
@@ -385,7 +387,7 @@ export class Game extends EventTarget {
     mouse.delta[0] = 0
     mouse.delta[1] = 0
 
-    this.dispatchEvent(evt('postupdate', { detail: { item: this } }));
+    this.dispatchEvent(evt('postupdate', { detail: { item: this } }))
   }
 
   on(eventName: string, callback: (...args: any[]) => void) {
