@@ -25,15 +25,30 @@ html, body {
   width: 100%;
 }
 
-#fileUpload {
-  z-index: 11;
+#interface-container {
+  display: flex;
   position: absolute;
-  margin: 20px;
+  margin: 10px;
   top: 0;
   left: 0;
-  opacity: 1;
-  transition: opacity 300ms ease;
-  input {
-    margin-top: 5px;
+  #window-container {
+    display: flex;
+  }
+  #file-upload {
+    width: 325px;
+    height: fit-content;
+    z-index: 11;
+    margin: 10px;
+    opacity: 1;
+    transition: opacity 300ms ease;
+    input {
+      margin-top: 5px;
+    }
+    #item-list {
+      overflow: auto;
+      min-height: 10vh;
+      max-height: 80vh;
+      margin: 0 0 0;
+    }
   }
 }
