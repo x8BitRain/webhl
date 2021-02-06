@@ -31,12 +31,12 @@ namespace HLViewer {
     rootSelector: string,
     params: {
       paths: {
-        replays: string
-        maps: string
-        sounds: string
-        skies: string
-        wads: string
-        base: string
+        replays: [File]
+        maps: [File]
+        sounds: [File]
+        skies: [File]
+        wads: [File]
+        sprites: [File]
       }
     }
   ) {
@@ -44,7 +44,6 @@ namespace HLViewer {
     if (!node) {
       return null
     }
-
     const config = Config.init(params)
     const result = Game.init(config)
 

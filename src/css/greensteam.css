@@ -599,11 +599,11 @@ a:hover {
   text-decoration: underline;
 }
 .DownloadButton {
-  background: url(/greensteam/download.png) no-repeat;
+  /*background: url(/greensteam/download.png) no-repeat;*/
   border: none;
 }
 .DownloadButton:active {
-  background: url(/greensteam/download_pressed.png) no-repeat;
+  /*background: url(/greensteam/download_pressed.png) no-repeat;*/
 }
 p.menu-item {
   padding: 4px;

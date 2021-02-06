@@ -1,7 +1,14 @@
 import { h, Component, createRef, Fragment } from 'preact'
+import {LocalAssets} from "./FileLoader";
 
-class FileList extends Component {
-  render(props) {
+interface RootProps {
+  fileNames: [File]
+  headerName: string
+  callBack: any
+}
+
+class FileList extends Component<RootProps> {
+  render(props: RootProps) {
     return (
       <>
         <div class="window" id="file-upload" name={this.props.headerName}>

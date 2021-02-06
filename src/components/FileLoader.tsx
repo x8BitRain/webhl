@@ -1,26 +1,34 @@
-import { h, Component, createRef, Fragment } from 'preact'
-import HLViewer from './../hlviewerjs'
+import { h, Component, createRef, Fragment, JSX } from 'preact'
 import FileList from './FileList'
-import { fileOpen, directoryOpen } from 'browser-fs-access'
+import { directoryOpen } from 'browser-fs-access'
 
 interface RootState {
   errored: boolean
-  filesLoaded: false
-  localAssets: LocalAssets
+  filesLoaded: boolean
+  localAssets: LocalAssets | null
+  maps: [] | null
+  demos: []  | null
+}
+
+interface RootProps {
+  initHLV: Function
 }
 
 export interface LocalAssets {
-  bsp: [File] | null
-  dem: [File] | null
-  wad: [File] | null
-  tga: [File] | null
-  wav: [File] | null
+  bsp: [File]
+  dem: [File]
+  wad: [File]
+  tga: [File]
+  wav: [File]
+  spr: [File]
+  [index: string]: any
 }
 
-export class FileLoader extends Component<RootState> {
+export class FileLoader extends Component<RootProps, RootState> {
   fileUpload = createRef()
-  constructor(props) {
+  constructor(props: RootProps) {
     super(props)
+    console.log(props);
     this.state = {
       errored: false,
       filesLoaded: false,
@@ -31,13 +39,14 @@ export class FileLoader extends Component<RootState> {
   }
 
   loadGameDir = async () => {
-    const localAssets: {[index: string]: any} = {};
+    let assets: any = {};
     const fileTypes = [
       'bsp',
       'dem',
       'wad',
       'wav',
-      'tga'
+      'tga',
+      'spr'
     ]
 
     const blobs = await directoryOpen({
@@ -45,18 +54,17 @@ export class FileLoader extends Component<RootState> {
     })
 
     fileTypes.forEach(type => {
-      localAssets[type] = blobs.filter((map) => map.name.match('.' + type))
+      assets[type] = blobs.filter((map) => map.name.match('.' + type))
     })
 
     this.setState({
-      localAssets,
+      localAssets: assets,
       filesLoaded: true
     })
   }
 
-  loadMap = (e) => {
-    const mapName = e.target.innerText
-    console.log(mapName);
+  loadMap = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const mapName = currentTarget.innerText
     this.props.initHLV({
       mapName,
       assets: this.state.localAssets,
@@ -64,8 +72,8 @@ export class FileLoader extends Component<RootState> {
     })
   }
 
-  loadDemo = (e) => {
-    const demoName = e.target.innerText
+  loadDemo = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const demoName = currentTarget.innerText
     this.props.initHLV({
       demoName,
       assets: this.state.localAssets,
