@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f894a99-7574-403b-bc20-238121f71be9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/FileList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/FileLoader.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_cricket.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_dunderpatrullen.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_wave.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/loopingleprechaun.wav" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/greensteam.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/greensteam.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FileLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileLoader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
@@ -52,19 +56,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/dist" />
       <recent name="$PROJECT_DIR$/assets/demos" />
       <recent name="$PROJECT_DIR$/assets/sounds" />
-      <recent name="$PROJECT_DIR$/assets/maps" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/images/icons" />
@@ -84,7 +89,9 @@
       <workItem from="1612137230657" duration="4919000" />
       <workItem from="1612221340331" duration="4002000" />
       <workItem from="1612264414173" duration="12987000" />
-      <workItem from="1612469192360" duration="14644000" />
+      <workItem from="1612469192360" duration="15183000" />
+      <workItem from="1612562834407" duration="1051000" />
+      <workItem from="1612564036446" duration="12162000" />
     </task>
     <servers />
   </component>
@@ -103,16 +110,8 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/FileList.tsx</url>
-          <line>19</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

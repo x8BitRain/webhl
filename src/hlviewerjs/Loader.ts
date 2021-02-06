@@ -156,10 +156,34 @@ export class Loader extends EventTarget {
       }
     }
 
-    this.dispatchEvent(evt('loadAll', { detail: { loader: this }  }));
+    this.dispatchEvent(evt('loadAll', { detail: { loader: this } }))
   }
 
-  load(demo: string | object) {
+  readFileAsync(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsArrayBuffer(file);
+    })
+  }
+
+  async processFile(file) {
+    // console.log(file);
+    try {
+      return await this.readFileAsync(file);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+
+  load(demo: string) {
     if (typeof demo === 'string') {
       const extension = extname(demo)
       if (extension === '.dem') {
@@ -174,37 +198,39 @@ export class Loader extends EventTarget {
     }
   }
 
-  async loadReplay(demo: string | object) {
-    let buffer;
+  async loadReplay(demo: string) {
     this.replay = new LoadItemReplay(demo)
 
-    this.dispatchEvent(evt('loadstart', { detail: { item: this.replay }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: this.replay } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.replay) {
         this.replay.progress = progress
       }
 
-      this.dispatchEvent(evt('progress', { detail: { item: this.replay }  }))
+      this.dispatchEvent(evt('progress', { detail: { item: this.replay } }))
     }
 
-    const replayPath = this.config.getReplaysPath()
+    //const replayPath = this.config.getReplaysPath()
 
-    if (typeof demo === 'string') {
-      buffer = await xhr(`${replayPath}/${demo}`, {
-        method: 'GET',
-        isBinary: true,
-        progressCallback
-      }).catch((err: any) => {
-        if (this.replay) {
-          this.replay.error()
-        }
-        console.error(err, this.replay)
-      })
-    } else {
-      buffer = demo;
-    }
 
+    const demoFile = this.config.paths.replays.find(file => file.name === demo);
+    const buffer = await this.processFile(demoFile)
+
+    // if (typeof demo === 'string') {
+    //   buffer = await xhr(`${replayPath}/${demo}`, {
+    //     method: 'GET',
+    //     isBinary: true,
+    //     progressCallback
+    //   }).catch((err: any) => {
+    //     if (this.replay) {
+    //       this.replay.error()
+    //     }
+    //     console.error(err, this.replay)
+    //   })
+    // } else {
+    //   buffer = demo
+    // }
 
     if (this.replay.isError()) {
       return
@@ -217,39 +243,46 @@ export class Loader extends EventTarget {
 
     const sounds = replay.maps[0].resources.sounds
     sounds.forEach((sound: any) => {
+      const soundPath = sound.name.split('/')
+      const soundName = soundPath[soundPath.length - 1];
+      // console.log(sound);
+      // console.log(soundName);
       if (sound.used) {
-        this.loadSound(sound.name, sound.index)
+        this.loadSound(soundName, sound.index)
       }
     })
 
-    this.dispatchEvent(evt('load', { detail: { item: this.replay }  }))
+    this.dispatchEvent(evt('load', { detail: { item: this.replay } }))
     this.checkStatus()
   }
 
   async loadMap(name: string) {
     this.map = new LoadItemBsp(name)
-    this.dispatchEvent(evt('loadstart', { detail: { item: this.map }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: this.map } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.map) {
         this.map.progress = progress
       }
 
-      this.dispatchEvent(evt('progress', { detail: { item: this.map }  }))
+      this.dispatchEvent(evt('progress', { detail: { item: this.map } }))
     }
 
-    const mapsPath = this.config.getMapsPath()
-    const buffer = await xhr(`${mapsPath}/${name}`, {
-      method: 'GET',
-      isBinary: true,
-      progressCallback
-    }).catch(err => {
-      if (this.map) {
-        this.map.error()
-      }
+    // const mapsPath = this.config.getMapsPath()
+    // const buffer = await xhr(`${mapsPath}/${name}`, {
+    //   method: 'GET',
+    //   isBinary: true,
+    //   progressCallback
+    // }).catch((err) => {
+    //   if (this.map) {
+    //     this.map.error()
+    //   }
+    //
+    //   console.error(err, this.map)
+    // })
 
-      console.error(err, this.map)
-    })
+    const mapFile = this.config.paths.maps.find(file => file.name === name);
+    const buffer = await this.processFile(mapFile)
 
     if (this.map.isError()) {
       return
@@ -269,23 +302,23 @@ export class Loader extends EventTarget {
         (a: string | undefined, pos: number, arr: (string | undefined)[]) =>
           a && arr.indexOf(a) === pos
       )
-      .forEach(a => a && this.loadSprite(a))
+      .forEach((a) => a && this.loadSprite(a))
 
     const skyname = map.entities[0].skyname
     if (skyname) {
       const sides = ['bk', 'dn', 'ft', 'lf', 'rt', 'up']
-      sides.map(a => `${skyname}${a}`).forEach(a => this.loadSky(a))
+      sides.map((a) => `${skyname}${a}`).forEach((a) => this.loadSky(a))
     }
 
     // check if there is at least one missing texture
     // if yes then load wad files (textures should be there)
-    if (map.textures.find(a => a.isExternal)) {
+    if (map.textures.find((a) => a.isExternal)) {
       const wads = map.entities[0].wad
       const wadPromises = wads.map((w: string) => this.loadWad(w))
       await Promise.all(wadPromises)
     }
 
-    this.dispatchEvent(evt('load', { detail: { item: this.map }  }))
+    this.dispatchEvent(evt('load', { detail: { item: this.map } }))
     this.checkStatus()
   }
 
@@ -293,12 +326,12 @@ export class Loader extends EventTarget {
     const item = new LoadItemSprite(name)
     this.sprites[name] = item
 
-    this.dispatchEvent(evt('loadstart', { detail: { item }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
 
-      this.dispatchEvent(evt('progress', { detail: { item }  }))
+      this.dispatchEvent(evt('progress', { detail: { item } }))
     }
 
     const buffer = await xhr(`${this.config.getBasePath()}/${name}`, {
@@ -318,30 +351,33 @@ export class Loader extends EventTarget {
     const sprite = Sprite.parse(buffer)
     item.done(sprite)
 
-    this.dispatchEvent(evt('load', { detail: { item }  }))
+    this.dispatchEvent(evt('load', { detail: { item } }))
     this.checkStatus()
   }
 
   async loadSky(name: string) {
     const item = new LoadItemSky(name)
     this.skies.push(item)
-    this.dispatchEvent(evt('loadstart', { detail: { item }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       item.progress = progress
-      this.dispatchEvent(evt('progress', { detail: { item }  }))
+      this.dispatchEvent(evt('progress', { detail: { item } }))
     }
 
-    const skiesPath = this.config.getSkiesPath()
-    const buffer = await xhr(`${skiesPath}/${name}.tga`, {
-      method: 'GET',
-      isBinary: true,
-      progressCallback
-    }).catch((err: any) => {
-      item.error()
-      console.error(err, item)
-      this.checkStatus()
-    })
+    // const skiesPath = this.config.getSkiesPath()
+    console.log(name);
+    const skyFile = this.config.paths.skies.find(file => file.name === name + '.tga');
+    const buffer = await this.processFile(skyFile)
+    // const buffer = await xhr(`${skiesPath}/${name}.tga`, {
+    //   method: 'GET',
+    //   isBinary: true,
+    //   progressCallback
+    // }).catch((err: any) => {
+    //   item.error()
+    //   console.error(err, item)
+    //   this.checkStatus()
+    // })
 
     if (item.isError()) {
       return
@@ -350,30 +386,33 @@ export class Loader extends EventTarget {
     const skyImage = Tga.parse(buffer, name)
     item.done(skyImage)
 
-    this.dispatchEvent(evt('load', { detail: { item }  }))
+    this.dispatchEvent(evt('load', { detail: { item } }))
     this.checkStatus()
   }
 
   async loadWad(name: string) {
     const wadItem = new LoadItemWad(name)
     this.wads.push(wadItem)
-    this.dispatchEvent(evt('loadstart', { detail: { item: wadItem }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: wadItem } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       wadItem.progress = progress
-      this.dispatchEvent(evt('progress', { detail: { item: wadItem }  }))
+      this.dispatchEvent(evt('progress', { detail: { item: wadItem } }))
     }
 
-    const wadsPath = this.config.getWadsPath()
-    const buffer = await xhr(`${wadsPath}/${name}`, {
-      method: 'GET',
-      isBinary: true,
-      progressCallback
-    }).catch((err: any) => {
-      wadItem.error()
-      console.error(err, wadItem)
-      this.checkStatus()
-    })
+    // console.log(name);
+    const wadFile = this.config.paths.wads.find(file => file.name === name);
+    const buffer = await this.processFile(wadFile)
+    // const wadsPath = this.config.getWadsPath()
+    // const buffer = await xhr(`${wadsPath}/${name}`, {
+    //   method: 'GET',
+    //   isBinary: true,
+    //   progressCallback
+    // }).catch((err: any) => {
+    //   wadItem.error()
+    //   console.error(err, wadItem)
+    //   this.checkStatus()
+    // })
 
     if (wadItem.isError()) {
       return
@@ -388,12 +427,12 @@ export class Loader extends EventTarget {
 
     const map = this.map.data
     const cmp = (a: any, b: any) => a.toLowerCase() === b.toLowerCase()
-    wad.entries.forEach(entry => {
+    wad.entries.forEach((entry) => {
       if (entry.type !== 'texture') {
         return
       }
 
-      map.textures.forEach(texture => {
+      map.textures.forEach((texture) => {
         if (cmp(entry.name, texture.name)) {
           texture.width = entry.width
           texture.height = entry.height
@@ -402,7 +441,7 @@ export class Loader extends EventTarget {
       })
     })
 
-    this.dispatchEvent(evt('loadstart', { detail: { item: wadItem }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: wadItem } }))
     this.checkStatus()
   }
 
@@ -410,28 +449,31 @@ export class Loader extends EventTarget {
     const sound = new LoadItemSound(name)
     this.sounds.push(sound)
 
-    this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: sound } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       sound.progress = progress
 
-      this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
+      this.dispatchEvent(evt('loadstart', { detail: { item: sound } }))
     }
-
-    const soundsPath = this.config.getSoundsPath()
-    const buffer = await xhr(`${soundsPath}/${name}`, {
-      method: 'GET',
-      isBinary: true,
-      progressCallback
-    }).catch((err: any) => {
-      sound.error()
-      console.error(err, sound)
-      this.checkStatus()
-    })
-
-    if (sound.isError()) {
-      return
-    }
+    console.log(name);
+    const soundFile = this.config.paths.sounds.find(file => file.name === name);
+    const buffer = await this.processFile(soundFile)
+    // console.log(name);
+    // const soundsPath = this.config.getSoundsPath()
+    // const buffer = await xhr(`${soundsPath}/${name}`, {
+    //   method: 'GET',
+    //   isBinary: true,
+    //   progressCallback
+    // }).catch((err: any) => {
+    //   sound.error()
+    //   console.error(err, sound)
+    //   this.checkStatus()
+    // })
+    //
+    // if (sound.isError()) {
+    //   return
+    // }
 
     const data = await Sound.create(buffer).catch((err: any) => {
       sound.error()
@@ -447,7 +489,7 @@ export class Loader extends EventTarget {
     data.name = name
     sound.done(data)
 
-    this.dispatchEvent(evt('loadstart', { detail: { item: sound }  }))
+    this.dispatchEvent(evt('loadstart', { detail: { item: sound } }))
     this.checkStatus()
   }
 }

@@ -13,8 +13,8 @@ class HLV {
     this.game = game
   }
 
-  load(file: object | string) {
-    this.game.load(file)
+  load(name: string) {
+    this.game.load(name)
   }
 
   setTitle(title: string) {
@@ -27,7 +27,19 @@ class HLV {
 }
 
 namespace HLViewer {
-  export function init(rootSelector: string, params: { paths: { replays: string; maps: string; sounds: string; skies: string; wads: string; base: string } }) {
+  export function init(
+    rootSelector: string,
+    params: {
+      paths: {
+        replays: string
+        maps: string
+        sounds: string
+        skies: string
+        wads: string
+        base: string
+      }
+    }
+  ) {
     const node = document.querySelector(rootSelector)
     if (!node) {
       return null
@@ -35,6 +47,7 @@ namespace HLViewer {
 
     const config = Config.init(params)
     const result = Game.init(config)
+
     if (result.status === 'success') {
       const game = result.game
       const ui = new PlayerInterface(game, node)

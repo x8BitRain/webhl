@@ -531,7 +531,7 @@ export class BspParser {
         .map((w: string) => basename(w))
     }
 
-    entities.forEach(e => {
+    entities.forEach((e) => {
       if (e.model) {
         if (typeof e.renderamt === 'undefined') {
           e.renderamt = 0
@@ -550,13 +550,13 @@ export class BspParser {
         }
       }
 
-      VECTOR_ATTRS.forEach(attr => {
+      VECTOR_ATTRS.forEach((attr) => {
         if (e[attr]) {
           e[attr] = e[attr].split(' ').map((v: string) => Number.parseFloat(v))
         }
       })
 
-      NUMBER_ATTRS.forEach(attr => {
+      NUMBER_ATTRS.forEach((attr) => {
         if (e[attr]) {
           e[attr] = Number.parseFloat(e[attr])
         }

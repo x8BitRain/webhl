@@ -1,40 +1,65 @@
-import { h, Component, Fragment, createRef } from "preact"
-import HLViewer from "./hlviewerjs"
-import FileLoader from "./components/FileLoader";
+import { h, Component, Fragment, createRef } from 'preact'
+import HLViewer from './hlviewerjs'
+import { FileLoader, LocalAssets} from './components/FileLoader'
+
+interface Payload {
+  demoName: string,
+  assets: LocalAssets,
+  type: string
+}
 
 class App extends Component {
   constructor() {
-    super();
-    this.state = { errored: false };
+    super()
+    this.state = { errored: false }
   }
 
-  initHLV = (itemName: string, demos: [], type: string) => {
+  initHLV = (payload: Payload) => {
     const hlv = HLViewer.init('#hlv-target', {
       paths: {
-        base:    '/',
-        replays: 'assets/demos',
-        maps:    'assets/maps',
-        wads:    'assets/wads',
-        skies:   'assets/skies',
-        sounds:  'assets/sounds'
+        base: '/',
+        // skies: 'assets/skies',
+        // sounds: 'assets/sounds',
+        replays: payload.assets.dem,
+        maps: payload.assets.bsp,
+        wads: payload.assets.wad,
+        skies: payload.assets.tga,
+        sounds: payload.assets.wav
       }
     })
-    if (type === 'demo') {
-      this.startDemo(hlv, demos, itemName);
+    console.log(payload);
+    if (payload.type === 'demo') {
+      this.startDemo(hlv, payload.demoName)
     } else {
-      // not ready yet
+      this.startMap(hlv, payload.mapName)
     }
+
   }
 
-  startDemo = (hlv: any, demos: [], demoName: string) => {
-    const targetDemo = demos.find(demo => demo.name.match(demoName));
-    let reader = new FileReader();
-    reader.onload = function () {
-      let arrayBuffer = this.result
-      hlv ? hlv.load(arrayBuffer as object, 'demo') : console.error('HLViewer not Instantiated yet')
-      console.log(hlv);
-    }
-    targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
+  startDemo = (hlv: any, demoName: string) => {
+    // const targetDemo = demos.find((demo) => demo.name.match(demoName))
+    // let reader = new FileReader()
+    // reader.onload = function () {
+    //   let arrayBuffer = this.result
+      hlv
+        ? hlv.load(demoName)
+        : console.error('HLViewer not Instantiated yet')
+    //   console.log(hlv)
+    // }
+    // targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
+  }
+
+  startMap = (hlv: any, mapName: string) => {
+    // const targetDemo = demos.find((demo) => demo.name.match(demoName))
+    // let reader = new FileReader()
+    // reader.onload = function () {
+    //   let arrayBuffer = this.result
+    hlv
+      ? hlv.load(mapName)
+      : console.error('HLViewer not Instantiated yet')
+    //   console.log(hlv)
+    // }
+    // targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
   }
 
   async componentDidMount() {
@@ -61,7 +86,6 @@ class App extends Component {
     // }, false);
   }
 
-
   render() {
     // @ts-ignore
     return (
@@ -71,8 +95,8 @@ class App extends Component {
           <div id="hlv-target" />
         </div>
       </>
-    );
+    )
   }
 }
 
-export default App;
+export default App

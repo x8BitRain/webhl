@@ -13,7 +13,7 @@ const updateGame = (game: Game, state: ReplayState) => {
   game.camera.rotation[2] = glMatrix.toRadian(state.cameraRot[2])
 }
 
-export class ReplayPlayer extends EventTarget{
+export class ReplayPlayer extends EventTarget {
   game: Game
   state: ReplayState
   replay: any
@@ -27,7 +27,7 @@ export class ReplayPlayer extends EventTarget{
   speed: number = 1
 
   constructor(game: Game) {
-    super();
+    super()
     this.reset()
     this.game = game
     this.state = new ReplayState()
@@ -71,7 +71,7 @@ export class ReplayPlayer extends EventTarget{
       this.isPaused = false
     }
 
-    this.dispatchEvent(evt('play'));
+    this.dispatchEvent(evt('play'))
   }
 
   pause() {
@@ -79,12 +79,12 @@ export class ReplayPlayer extends EventTarget{
       this.isPaused = true
     }
 
-    this.dispatchEvent(evt('pause'));
+    this.dispatchEvent(evt('pause'))
   }
 
   stop() {
     this.reset()
-    this.dispatchEvent(evt('stop'));
+    this.dispatchEvent(evt('stop'))
   }
 
   speedUp() {
@@ -243,7 +243,7 @@ export class ReplayPlayer extends EventTarget{
         }
       } else if (frame.type === 8) {
         let sample = frame.sound.sample
-        let sound = sounds.find(s => s.name === sample)
+        let sound = sounds.find((s) => s.name === sample)
         if (sound && sound.name !== 'common/null.wav') {
           let channel = frame.sound.channel
           let volume = frame.sound.volume

@@ -74,7 +74,7 @@ export class SoundSystem extends EventTarget {
 
     localStorage.setItem('volume', value.toString())
 
-    this.dispatchEvent(evt('volumeChange', { detail: { item: value } }));
+    this.dispatchEvent(evt('volumeChange', { detail: { item: value } }))
   }
 
   toggleMute() {

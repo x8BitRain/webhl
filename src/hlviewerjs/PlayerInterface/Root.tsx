@@ -273,7 +273,7 @@ export class Root extends Component<RootProps, RootState> {
 
         <div
           class={s.screen}
-          ref={node => (this.node = node)}
+          ref={(node) => (this.node = node)}
           onClick={this.onScreenClick}
           onDblClick={this.onScreenDblClick}
         />

@@ -33,12 +33,12 @@ export enum WorldSpawnDefaultTeam {
 export interface AiScriptedSequence {
   classname: 'aiscripted_sequence'
   m_iszEntity: string
-	m_iszPlay: string
-	m_flRadius: number
-	m_flRepeat: number
-	m_fMoveTo: AiScriptedSequenceMoveTo
-	m_iFinishSchedule: AiScriptedSequenceFinishSchedule
-	spawnflags: AiScriptedSequenceSpawnflags
+  m_iszPlay: string
+  m_flRadius: number
+  m_flRepeat: number
+  m_fMoveTo: AiScriptedSequenceMoveTo
+  m_iFinishSchedule: AiScriptedSequenceFinishSchedule
+  spawnflags: AiScriptedSequenceSpawnflags
 }
 export enum AiScriptedSequenceMoveTo {
   No = 0,
@@ -90,22 +90,22 @@ export enum AmbientGenericPreset {
   QuickPulse = 9,
   SlowOscillator = 10,
   Oscillator = 11,
-	QuickOscillator = 12,
-	GrungePitch = 13,
-	VeryLowPitch = 14,
-	LowPitch = 15,
-	HighPitch = 16,
-	VeryHighPitch = 17,
-	ScreamingPitch = 18,
-	OscillateSpinUpDown = 19,
-	PulseSpinUpDown = 20,
-	RandomPitch = 21,
-	RandomPitchFast = 22,
-	IncrementalSpinup = 23,
-	Alien = 24,
-	Bizzare = 25,
-	PlanetX = 26,
-	Haunted = 27
+  QuickOscillator = 12,
+  GrungePitch = 13,
+  VeryLowPitch = 14,
+  LowPitch = 15,
+  HighPitch = 16,
+  VeryHighPitch = 17,
+  ScreamingPitch = 18,
+  OscillateSpinUpDown = 19,
+  PulseSpinUpDown = 20,
+  RandomPitch = 21,
+  RandomPitchFast = 22,
+  IncrementalSpinup = 23,
+  Alien = 24,
+  Bizzare = 25,
+  PlanetX = 26,
+  Haunted = 27
 }
 export enum AmbientGenericSpawnFlags {
   PlayEverywhere = 1,
@@ -302,22 +302,22 @@ export interface CyclerWreckage {
 }
 
 export interface EnvBeam {
-  classname: 'env_beam',
+  classname: 'env_beam'
   renderEffect: RenderEffect
   renderMode: RenderMode
   renderAmmount: number
   renderColor: number[]
   radius: number
-	life: number
-	boltWidth: number
-	noiseAmplitude: number
-	texture: string
-	textureScroll: number
-	frameRate: number
-	frameStart: number
-	strikeTime: number
-	damage: number
-	spawnFlags: EnvBeamSpawnFlags
+  life: number
+  boltWidth: number
+  noiseAmplitude: number
+  texture: string
+  textureScroll: number
+  frameRate: number
+  frameStart: number
+  strikeTime: number
+  damage: number
+  spawnFlags: EnvBeamSpawnFlags
 }
 
 export enum EnvBeamSpawnFlags {
@@ -342,12 +342,12 @@ export enum ZHLTLightFlags {
 
 export enum RenderEffect {
   Normal = 0,
-	SlowPulse = 1, //* Additive or Texture mode only.
+  SlowPulse = 1, //* Additive or Texture mode only.
   FastPulse = 2, //* Additive or Texture mode only.
   SlowWidePulse = 3, //* Additive or Texture mode only.
-  FastWidePulse = 4,  //* Additive or Texture mode only.
+  FastWidePulse = 4, //* Additive or Texture mode only.
   SlowFadeAway = 5,
-	FastFadeAway = 6,
+  FastFadeAway = 6,
   SlowBecomeSolid = 7,
   FastBecomeSolid = 8,
   SlowStrobe = 9,
@@ -372,27 +372,29 @@ export enum RenderMode {
   Additive = 5
 }
 
-const parseNumberArray = (a: string) => a.split(' ').map(b => parseFloat(b))
+const parseNumberArray = (a: string) => a.split(' ').map((b) => parseFloat(b))
 
 const parsers: {
-  worldspawn: (entityData: {[name: string]: any}) => WorldSpawn
-  aiscripted_sequence: (entityData: {[name: string]: any}) => AiScriptedSequence
-  ambient_generic: (entityData: {[name: string]: any}) => AmbientGeneric
-  ammo_357: (entityData: {[name: string]: any}) => Ammo357
-  ammo_9mmAR: (entityData: {[name: string]: any}) => Ammo9mmAR
-  ammo_9mmbox: (entityData: {[name: string]: any}) => Ammo9mmBox
-  ammo_9mmclip: (entityData: {[name: string]: any}) => Ammo9mmClip
-  ammo_ARgrenades: (entityData: {[name: string]: any}) => AmmoARGrenades
-  ammo_buckshot: (entityData: {[name: string]: any}) => AmmoBuckShot
-  ammo_crossbow: (entityData: {[name: string]: any}) => AmmoCrossBox
-  ammo_gaussclip: (entityData: {[name: string]: any}) => AmmoGaussClip
-  ammo_rpgclip: (entityData: {[name: string]: any}) => AmmoRPGClip
-  button_target: (entityData: {[name: string]: any}) => ButtonTarget
-  cycler: (entityData: {[name: string]: any}) => Cycler
-  cycler_sprite: (entityData: {[name: string]: any}) => CyclerSprite
-  cyclear_weapon: (entityData: {[name: string]: any}) => CyclerWeapon
-  cyclear_wreckage: (entityData: {[name: string]: any}) => CyclerWreckage
-  env_beam: (entityData: {[name: string]: any}) => EnvBeam
+  worldspawn: (entityData: { [name: string]: any }) => WorldSpawn
+  aiscripted_sequence: (entityData: {
+    [name: string]: any
+  }) => AiScriptedSequence
+  ambient_generic: (entityData: { [name: string]: any }) => AmbientGeneric
+  ammo_357: (entityData: { [name: string]: any }) => Ammo357
+  ammo_9mmAR: (entityData: { [name: string]: any }) => Ammo9mmAR
+  ammo_9mmbox: (entityData: { [name: string]: any }) => Ammo9mmBox
+  ammo_9mmclip: (entityData: { [name: string]: any }) => Ammo9mmClip
+  ammo_ARgrenades: (entityData: { [name: string]: any }) => AmmoARGrenades
+  ammo_buckshot: (entityData: { [name: string]: any }) => AmmoBuckShot
+  ammo_crossbow: (entityData: { [name: string]: any }) => AmmoCrossBox
+  ammo_gaussclip: (entityData: { [name: string]: any }) => AmmoGaussClip
+  ammo_rpgclip: (entityData: { [name: string]: any }) => AmmoRPGClip
+  button_target: (entityData: { [name: string]: any }) => ButtonTarget
+  cycler: (entityData: { [name: string]: any }) => Cycler
+  cycler_sprite: (entityData: { [name: string]: any }) => CyclerSprite
+  cyclear_weapon: (entityData: { [name: string]: any }) => CyclerWeapon
+  cyclear_wreckage: (entityData: { [name: string]: any }) => CyclerWreckage
+  env_beam: (entityData: { [name: string]: any }) => EnvBeam
 } = {
   worldspawn: (e) => ({
     classname: 'worldspawn',
@@ -420,7 +422,7 @@ const parsers: {
     m_flRadius: parseInt(e.m_flRadius) || 512,
     m_flRepeat: parseInt(e.m_flRepeat) || 0,
     m_fMoveTo: parseInt(e.m_fMoveTo) || 0,
-    m_iFinishSchedule: parseInt(e.m_iFinishSchedule) || 0,
+    m_iFinishSchedule: parseInt(e.m_iFinishSchedule) || 0
   }),
   ambient_generic: (e) => ({
     classname: 'ambient_generic',
