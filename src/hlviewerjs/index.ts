@@ -13,8 +13,8 @@ class HLV {
     this.game = game
   }
 
-  load(file: object | string) {
-    this.game.load(file)
+  load(name: string) {
+    this.game.load(name)
   }
 
   setTitle(title: string) {
@@ -47,6 +47,7 @@ namespace HLViewer {
 
     const config = Config.init(params)
     const result = Game.init(config)
+
     if (result.status === 'success') {
       const game = result.game
       const ui = new PlayerInterface(game, node)

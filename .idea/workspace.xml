@@ -5,41 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f894a99-7574-403b-bc20-238121f71be9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_cricket.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_dunderpatrullen.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_wave.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sounds/loopingleprechaun.wav" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FileLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileLoader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/greensteam.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/greensteam.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/BitReader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/BitReader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/BspLightmap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/BspLightmap.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Fullscreen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Fullscreen.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Graphics/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Graphics/Util.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Graphics/WorldScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Graphics/WorldScene.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspEntityParser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspEntityParser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspLightmapParser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspLightmapParser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspParser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/BspParser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Tga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Tga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Vdf.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Vdf.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Wad.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Parsers/Wad.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/Root.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/VolumeControl/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/PlayerInterface/VolumeControl/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Reader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Reader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Replay/FrameDataReader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Replay/FrameDataReader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Replay/ReplayMap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Replay/ReplayMap.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/ReplayPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/ReplayPlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Sound.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Sound.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/SoundSystem.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/SoundSystem.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Time.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Time.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Util.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Xhr.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Xhr.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hlviewerjs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/yarn-error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +59,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -113,7 +91,7 @@
       <workItem from="1612264414173" duration="12987000" />
       <workItem from="1612469192360" duration="15183000" />
       <workItem from="1612562834407" duration="1051000" />
-      <workItem from="1612564036446" duration="574000" />
+      <workItem from="1612564036446" duration="12162000" />
     </task>
     <servers />
   </component>
