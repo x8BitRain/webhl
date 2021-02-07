@@ -1,5 +1,5 @@
 import { h, Component, createRef, Fragment } from 'preact'
-import {LocalAssets} from "./FileLoader";
+import { LocalAssets } from './FileLoader'
 
 interface RootProps {
   fileNames: [File]
@@ -11,7 +11,7 @@ class FileList extends Component<RootProps> {
   render(props: RootProps) {
     return (
       <>
-        <div class="window" id="file-upload" name={this.props.headerName}>
+        <div class="window file-upload" name={this.props.headerName}>
           <div class="box inset" id="item-list">
             {props.fileNames.map((file: File) => (
               <p class="menu-item" onClick={this.props.callBack}>

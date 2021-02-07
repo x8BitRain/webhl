@@ -1,25 +1,32 @@
-import {h, Component, Fragment, render} from 'preact'
+import { h, Component, Fragment, render } from 'preact'
 import { Game } from './hlviewerjs/Game'
 import { Config } from './hlviewerjs/Config'
 import { Root } from './hlviewerjs/PlayerInterface/Root'
-import { FileLoader, LocalAssets} from './components/FileLoader'
+import { FileLoader, LocalAssets } from './components/FileLoader'
 
 interface Payload {
-  assets: LocalAssets,
-  demoName: string,
-  mapName: string,
+  assets: LocalAssets
+  demoName: string
+  mapName: string
   type: string
 }
 
-class App extends Component {
+interface RootState {
+  showUI: boolean
+}
 
+class App extends Component {
   private game: Game | null
   private rootNode: Element | null
+  state: RootState
 
   constructor() {
-    super();
+    super()
     this.game = null
     this.rootNode = null
+    this.state = {
+      showUI: true
+    }
   }
 
   initHLV(
@@ -44,7 +51,7 @@ class App extends Component {
 
     if (result.status === 'success') {
       this.game = result.game
-      this.rootNode = node;
+      this.rootNode = node
 
       this.drawInterface()
       this.game.draw()
@@ -53,22 +60,30 @@ class App extends Component {
     return null
   }
 
-
   init = (payload: Payload) => {
-    this.initHLV('#hlv-target', {
-      paths: {
-        replays: payload.assets.dem,
-        maps: payload.assets.bsp,
-        wads: payload.assets.wad,
-        skies: payload.assets.tga,
-        sounds: payload.assets.wav,
-        sprites: payload.assets.spr
+    if (!this.game) {
+      this.initHLV('#hlv-target', {
+        paths: {
+          replays: payload.assets.dem,
+          maps: payload.assets.bsp,
+          wads: payload.assets.wad,
+          skies: payload.assets.tga,
+          sounds: payload.assets.wav,
+          sprites: payload.assets.spr
+        }
+      })
+      if (payload.type === 'demo') {
+        this.startDemo(payload.demoName)
+      } else {
+        this.startMap(payload.mapName)
       }
-    })
-    if (payload.type === 'demo') {
-      this.startDemo(payload.demoName)
     } else {
-      this.startMap(payload.mapName)
+      if (payload.type === 'demo') {
+        this.startDemo(payload.demoName)
+        console.warn()
+      } else {
+        this.startMap(payload.mapName)
+      }
     }
   }
 
@@ -84,20 +99,36 @@ class App extends Component {
       : console.error('HLViewer not Instantiated yet')
   }
 
-  async componentDidMount() {}
+  toggleUI = (state: boolean) => {
+    this.setState({
+      showUI: state || !this.state.showUI
+    })
+  }
+
+  componentWillUnmount() {
+    this.game = null
+  }
 
   drawInterface() {
-    render(<Root game={this.game as Game} root={this.rootNode as Element} />, this.rootNode as Element)
+    render(
+      <Root
+        game={this.game as Game}
+        root={this.rootNode as Element}
+        toggleUI={this.toggleUI}
+      />,
+      this.rootNode as Element
+    )
   }
 
   render() {
     return (
       <>
-        <div id="app">
-          <FileLoader init={this.init} />
-          <div id="hlv-target">
-          </div>
-        </div>
+        <FileLoader
+          init={this.init}
+          showUI={this.state.showUI}
+          toggleUI={this.toggleUI}
+        />
+        <div id="hlv-target"/>
       </>
     )
   }

@@ -11,12 +11,12 @@ export class Config {
   public static init(params: any): Config {
     return new Config({
       paths: {
-        replays: (params && params.paths && params.paths.replays),
-        maps: (params && params.paths && params.paths.maps),
-        wads: (params && params.paths && params.paths.wads),
-        skies: (params && params.paths && params.paths.skies),
-        sounds: (params && params.paths && params.paths.sounds),
-        sprites: (params && params.paths && params.paths.sprites)
+        replays: params && params.paths && params.paths.replays,
+        maps: params && params.paths && params.paths.maps,
+        wads: params && params.paths && params.paths.wads,
+        skies: params && params.paths && params.paths.skies,
+        sounds: params && params.paths && params.paths.sounds,
+        sprites: params && params.paths && params.paths.sprites
       }
     })
   }

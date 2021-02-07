@@ -9,6 +9,7 @@ import { RootStyle as s } from './Root.style'
 interface RootProps {
   game: Game
   root: Element
+  toggleUI: Function
 }
 
 interface RootState {
@@ -215,16 +216,16 @@ export class Root extends Component<RootProps, RootState> {
       isVisible: false
     })
 
-  clearTimeout(this.fadeOut)
+    clearTimeout(this.fadeOut)
     this.fadeOut = 0
   }
 
   fadeReset = () => {
-  if (!this.state.isVisible) {
-    this.setState({ isVisible: true })
-  }
+    if (!this.state.isVisible) {
+      this.setState({ isVisible: true })
+    }
 
-  clearTimeout(this.fadeOut)
+    clearTimeout(this.fadeOut)
     this.fadeOut = setTimeout(() => {
       this.setState({ isVisible: false })
       this.fadeOut = 0
@@ -265,9 +266,13 @@ export class Root extends Component<RootProps, RootState> {
 
     return (
       <div class={isVisible ? s.rootVisible : s.root}>
-        <div class={isVisible ? s.titleVisible : s.title}>
-          {this.state.title}
-        </div>
+        <button
+          id={'toggle-ui'}
+          class={isVisible ? s.titleVisible : s.title}
+          onClick={() => this.props.toggleUI()}
+        >
+          Toggle Menu
+        </button>
 
         <Loading game={game} visible={this.state.isLoading} />
 

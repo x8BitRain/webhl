@@ -160,25 +160,25 @@ export class Loader extends EventTarget {
 
   readFileAsync(file: File): Promise<any> {
     return new Promise((resolve, reject) => {
-      let reader = new FileReader();
+      let reader = new FileReader()
       reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(file);
+        resolve(reader.result)
+      }
+      reader.onerror = reject
+      reader.readAsArrayBuffer(file)
     })
   }
 
   async processFile(file: File): Promise<ArrayBuffer | undefined> {
     try {
-      return await this.readFileAsync(file);
-    } catch(err) {
-      console.error("Could not read file: ", file, err);
+      return await this.readFileAsync(file)
+    } catch (err) {
+      console.error('Could not read file: ', file, err)
     }
   }
 
-
   async load(file: string) {
+    console.log(file);
     const extension = extname(file)
     if (extension === '.dem') {
       await this.loadReplay(file)
@@ -190,12 +190,10 @@ export class Loader extends EventTarget {
   }
 
   async loadReplay(demo: string) {
-    let buffer: ArrayBuffer | undefined;
+    let buffer: ArrayBuffer | undefined
     this.replay = new LoadItemReplay(demo)
 
-    this.dispatchEvent(
-      evt('loadstart', { detail: { item: this.replay } })
-    )
+    this.dispatchEvent(evt('loadstart', { detail: { item: this.replay } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.replay) {
@@ -205,7 +203,9 @@ export class Loader extends EventTarget {
       this.dispatchEvent(evt('progress', { detail: { item: this.replay } }))
     }
 
-    const demoFile = this.config.paths.replays.find(file => file.name === demo);
+    const demoFile = this.config.paths.replays.find(
+      (file) => file.name === demo
+    )
     if (demoFile) {
       buffer = await this.processFile(demoFile)
     } else {
@@ -226,7 +226,7 @@ export class Loader extends EventTarget {
     const sounds = replay.maps[0].resources.sounds
     sounds.forEach((sound: any) => {
       const soundPath = sound.name.split('/')
-      const soundName = soundPath[soundPath.length - 1];
+      const soundName = soundPath[soundPath.length - 1]
       if (sound.used) {
         this.loadSound(soundName, sound.index)
       }
@@ -237,12 +237,10 @@ export class Loader extends EventTarget {
   }
 
   async loadMap(name: string) {
-    let buffer: ArrayBuffer | undefined;
+    let buffer: ArrayBuffer | undefined
     this.map = new LoadItemBsp(name)
 
-    this.dispatchEvent(
-      evt('loadstart', { detail: { item: this.map } })
-    )
+    this.dispatchEvent(evt('loadstart', { detail: { item: this.map } }))
 
     const progressCallback: ProgressCallback = (_1, progress) => {
       if (this.map) {
@@ -252,7 +250,7 @@ export class Loader extends EventTarget {
       this.dispatchEvent(evt('progress', { detail: { item: this.map } }))
     }
 
-    const mapFile = this.config.paths.maps.find(file => file.name === name);
+    const mapFile = this.config.paths.maps.find((file) => file.name === name)
     if (mapFile) {
       buffer = await this.processFile(mapFile)
     } else {
@@ -284,9 +282,11 @@ export class Loader extends EventTarget {
     const skyname = map.entities[0].skyname
     if (skyname) {
       const sides = ['bk', 'dn', 'ft', 'lf', 'rt', 'up']
-      sides.map((a) => `${skyname}${a}`).forEach((a) => {
-        this.loadSky(a)
-      })
+      sides
+        .map((a) => `${skyname}${a}`)
+        .forEach((a) => {
+          this.loadSky(a)
+        })
     }
 
     // check if there is at least one missing texture
@@ -299,10 +299,11 @@ export class Loader extends EventTarget {
 
     this.dispatchEvent(evt('load', { detail: { item: this.map } }))
     this.checkStatus()
+    this.dispatchEvent(evt('loadAll', { detail: { loader: this } }))
   }
 
   async loadSprite(name: string) {
-    let buffer;
+    let buffer
     const item = new LoadItemSprite(name)
     this.sprites[name] = item
 
@@ -315,9 +316,11 @@ export class Loader extends EventTarget {
     }
 
     const spritePath = name.split('/')
-    const spriteName = spritePath[spritePath.length - 1];
+    const spriteName = spritePath[spritePath.length - 1]
 
-    const sprFile = this.config.paths.sprites.find(file => file.name === spriteName);
+    const sprFile = this.config.paths.sprites.find(
+      (file) => file.name === spriteName
+    )
 
     if (sprFile) {
       buffer = await this.processFile(sprFile)
@@ -339,7 +342,7 @@ export class Loader extends EventTarget {
   }
 
   async loadSky(name: string) {
-    let buffer;
+    let buffer
     const item = new LoadItemSky(name)
     this.skies.push(item)
     this.dispatchEvent(evt('loadstart', { detail: { item } }))
@@ -350,9 +353,11 @@ export class Loader extends EventTarget {
     }
 
     const skyString = new RegExp(name + '.tga', 'i')
-    const skyFile = this.config.paths.skies.find(file => file.name.match(skyString));
+    const skyFile = this.config.paths.skies.find((file) =>
+      file.name.match(skyString)
+    )
 
-    if (skyFile)  {
+    if (skyFile) {
       buffer = await this.processFile(skyFile)
     } else {
       buffer = await xhr('/missing.tga', {
@@ -378,7 +383,7 @@ export class Loader extends EventTarget {
   }
 
   async loadWad(name: string) {
-    let buffer: ArrayBuffer | undefined;
+    let buffer: ArrayBuffer | undefined
     const wadItem = new LoadItemWad(name)
     this.wads.push(wadItem)
     this.dispatchEvent(evt('loadstart', { detail: { item: wadItem } }))
@@ -389,7 +394,9 @@ export class Loader extends EventTarget {
     }
 
     const wadString = new RegExp(name, 'i')
-    const wadFile = this.config.paths.wads.find(file => file.name.match(wadString));
+    const wadFile = this.config.paths.wads.find((file) =>
+      file.name.match(wadString)
+    )
 
     if (wadFile) {
       buffer = await this.processFile(wadFile)
@@ -431,8 +438,8 @@ export class Loader extends EventTarget {
   }
 
   async loadSound(name: string, index: number) {
-    let buffer: ArrayBuffer | undefined;
-    let data;
+    let buffer: ArrayBuffer | undefined
+    let data
     const sound = new LoadItemSound(name)
     this.sounds.push(sound)
 
@@ -443,7 +450,9 @@ export class Loader extends EventTarget {
       this.dispatchEvent(evt('loadstart', { detail: { item: sound } }))
     }
 
-    const soundFile = this.config.paths.sounds.find(file => file.name === name);
+    const soundFile = this.config.paths.sounds.find(
+      (file) => file.name === name
+    )
 
     if (soundFile) {
       buffer = await this.processFile(soundFile)
@@ -457,7 +466,6 @@ export class Loader extends EventTarget {
       console.error('Could not load: ', name)
       this.checkStatus()
     }
-
 
     if (!data || sound.isError()) {
       return

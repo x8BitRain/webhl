@@ -11,13 +11,9 @@ const rootStyle = () => ({
 
 const titleStyle = () => ({
   position: 'absolute' as 'absolute',
-  top: '20px',
-  left: '0',
+  bottom: '6.5%',
+  left: '1.6%',
   zIndex: 20,
-  padding: '10px 10px 10px 20px',
-  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  fontSize: '13pt',
-  fontFamily: `'Roboto', Arial, Helvetica, sans-serif`,
   opacity: 0,
   transition: 'opacity 0.2s'
 })
