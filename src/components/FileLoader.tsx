@@ -8,10 +8,11 @@ interface RootState {
   localAssets: LocalAssets | null
   maps: [] | null
   demos: []  | null
+  showUI: boolean
 }
 
 interface RootProps {
-  initHLV: Function
+  init: Function
 }
 
 export interface LocalAssets {
@@ -34,7 +35,8 @@ export class FileLoader extends Component<RootProps, RootState> {
       filesLoaded: false,
       localAssets: null,
       maps: null,
-      demos: null
+      demos: null,
+      showUI: true,
     }
   }
 
@@ -54,7 +56,8 @@ export class FileLoader extends Component<RootProps, RootState> {
     })
 
     fileTypes.forEach(type => {
-      assets[type] = blobs.filter((map) => map.name.match('.' + type))
+      const typeString = new RegExp('.' + type, 'i')
+      assets[type] = blobs.filter((map) => map.name.match(typeString))
     })
 
     this.setState({
@@ -63,31 +66,43 @@ export class FileLoader extends Component<RootProps, RootState> {
     })
   }
 
+  hideUI = () => {
+    window.localStorage.setItem('showUI', 'false')
+    this.setState({
+      showUI: false
+    })
+  }
+
   loadMap = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     const mapName = currentTarget.innerText
-    this.props.initHLV({
+    this.props.init({
       mapName,
       assets: this.state.localAssets,
-      type: 'map'
+      type: 'map',
     })
+    this.hideUI()
   }
 
   loadDemo = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     const demoName = currentTarget.innerText
-    this.props.initHLV({
+    this.props.init({
       demoName,
       assets: this.state.localAssets,
-      type: 'demo'
+      type: 'demo',
+      showUI: false
     })
+    this.hideUI()
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   render() {
     // @ts-ignore
     return (
       <div id="interface-container">
-        <div id="window-container">
+        {this.state.showUI ?
+          (<div id="window-container">
           {this.state.localAssets ? (
             <>
               <FileList
@@ -102,7 +117,8 @@ export class FileLoader extends Component<RootProps, RootState> {
               />
             </>
           ) : null}
-        </div>
+        </div>) : null
+        }
         {!this.state.filesLoaded ? (
           <div class="window" id="file-upload" name="Web HL">
             <button onClick={this.loadGameDir}>Open Game Directory</button>

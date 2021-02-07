@@ -388,7 +388,8 @@ export class Loader extends EventTarget {
       this.dispatchEvent(evt('progress', { detail: { item: wadItem } }))
     }
 
-    const wadFile = this.config.paths.wads.find(file => file.name === name);
+    const wadString = new RegExp(name, 'i')
+    const wadFile = this.config.paths.wads.find(file => file.name.match(wadString));
 
     if (wadFile) {
       buffer = await this.processFile(wadFile)

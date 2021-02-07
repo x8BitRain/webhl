@@ -1,22 +1,61 @@
-import { h, Component, Fragment, createRef } from 'preact'
-import HLViewer from './hlviewerjs'
+import {h, Component, Fragment, render} from 'preact'
+import { Game } from './hlviewerjs/Game'
+import { Config } from './hlviewerjs/Config'
+import { Root } from './hlviewerjs/PlayerInterface/Root'
 import { FileLoader, LocalAssets} from './components/FileLoader'
 
 interface Payload {
+  assets: LocalAssets,
   demoName: string,
   mapName: string,
-  assets: LocalAssets,
   type: string
 }
 
 class App extends Component {
+
+  private game: Game | null
+  private rootNode: Element | null
+
   constructor() {
-    super()
-    this.state = { errored: false }
+    super();
+    this.game = null
+    this.rootNode = null
   }
 
-  initHLV = (payload: Payload) => {
-    const hlv = HLViewer.init('#hlv-target', {
+  initHLV(
+    rootSelector: string,
+    params: {
+      paths: {
+        replays: [File]
+        maps: [File]
+        sounds: [File]
+        skies: [File]
+        wads: [File]
+        sprites: [File]
+      }
+    }
+  ) {
+    const node = document.querySelector(rootSelector)
+    if (!node) {
+      return null
+    }
+    const config = Config.init(params)
+    const result = Game.init(config)
+
+    if (result.status === 'success') {
+      this.game = result.game
+      this.rootNode = node;
+
+      this.drawInterface()
+      this.game.draw()
+    }
+
+    return null
+  }
+
+
+  init = (payload: Payload) => {
+    this.initHLV('#hlv-target', {
       paths: {
         replays: payload.assets.dem,
         maps: payload.assets.bsp,
@@ -27,33 +66,37 @@ class App extends Component {
       }
     })
     if (payload.type === 'demo') {
-      this.startDemo(hlv, payload.demoName)
+      this.startDemo(payload.demoName)
     } else {
-      this.startMap(hlv, payload.mapName)
+      this.startMap(payload.mapName)
     }
   }
 
-  startDemo = (hlv: any, demoName: string) => {
-    hlv
-      ? hlv.load(demoName)
+  startDemo = (demoName: string) => {
+    this.game
+      ? this.game.load(demoName)
       : console.error('HLViewer not Instantiated yet')
   }
 
-  startMap = (hlv: any, mapName: string) => {
-    hlv
-      ? hlv.load(mapName)
+  startMap = (mapName: string) => {
+    this.game
+      ? this.game.load(mapName)
       : console.error('HLViewer not Instantiated yet')
   }
 
   async componentDidMount() {}
 
+  drawInterface() {
+    render(<Root game={this.game as Game} root={this.rootNode as Element} />, this.rootNode as Element)
+  }
+
   render() {
-    // @ts-ignore
     return (
       <>
         <div id="app">
-          <FileLoader initHLV={this.initHLV} />
-          <div id="hlv-target" />
+          <FileLoader init={this.init} />
+          <div id="hlv-target">
+          </div>
         </div>
       </>
     )

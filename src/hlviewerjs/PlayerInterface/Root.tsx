@@ -215,16 +215,16 @@ export class Root extends Component<RootProps, RootState> {
       isVisible: false
     })
 
-    clearTimeout(this.fadeOut)
+  clearTimeout(this.fadeOut)
     this.fadeOut = 0
   }
 
   fadeReset = () => {
-    if (!this.state.isVisible) {
-      this.setState({ isVisible: true })
-    }
+  if (!this.state.isVisible) {
+    this.setState({ isVisible: true })
+  }
 
-    clearTimeout(this.fadeOut)
+  clearTimeout(this.fadeOut)
     this.fadeOut = setTimeout(() => {
       this.setState({ isVisible: false })
       this.fadeOut = 0
