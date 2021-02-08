@@ -1,25 +1,34 @@
-import { h, Component, createRef, Fragment } from 'preact'
-import HLViewer from './../hlviewerjs'
+import { h, Component, createRef, Fragment, JSX } from 'preact'
 import FileList from './FileList'
-import { fileOpen, directoryOpen } from 'browser-fs-access'
+import { directoryOpen } from 'browser-fs-access'
 
 interface RootState {
   errored: boolean
-  filesLoaded: false
-  localAssets: LocalAssets
+  filesLoaded: boolean
+  localAssets: LocalAssets | null
+  maps: [] | null
+  demos: [] | null
+}
+
+interface RootProps {
+  init: Function
+  toggleUI: Function
+  showUI: boolean
 }
 
 export interface LocalAssets {
-  bsp: [File] | null
-  dem: [File] | null
-  wad: [File] | null
-  tga: [File] | null
-  wav: [File] | null
+  bsp: [File]
+  dem: [File]
+  wad: [File]
+  tga: [File]
+  wav: [File]
+  spr: [File]
+  [index: string]: any
 }
 
-export class FileLoader extends Component<RootState> {
+export class FileLoader extends Component<RootProps, RootState> {
   fileUpload = createRef()
-  constructor(props) {
+  constructor(props: RootProps) {
     super(props)
     this.state = {
       errored: false,
@@ -31,72 +40,73 @@ export class FileLoader extends Component<RootState> {
   }
 
   loadGameDir = async () => {
-    const localAssets: {[index: string]: any} = {};
-    const fileTypes = [
-      'bsp',
-      'dem',
-      'wad',
-      'wav',
-      'tga'
-    ]
+    let assets: any = {}
+    const fileTypes = ['bsp', 'dem', 'wad', 'wav', 'tga', 'spr']
 
     const blobs = await directoryOpen({
       recursive: true
     })
 
-    fileTypes.forEach(type => {
-      localAssets[type] = blobs.filter((map) => map.name.match('.' + type))
+    fileTypes.forEach((type) => {
+      const typeString = new RegExp('.' + type, 'i')
+      assets[type] = blobs.filter((map) => map.name.match(typeString))
     })
 
     this.setState({
-      localAssets,
+      localAssets: assets,
       filesLoaded: true
     })
   }
 
-  loadMap = (e) => {
-    const mapName = e.target.innerText
-    console.log(mapName);
-    this.props.initHLV({
+  loadMap = ({ currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const mapName = currentTarget.innerText
+    this.props.init({
       mapName,
       assets: this.state.localAssets,
       type: 'map'
     })
+    this.props.toggleUI(false)
   }
 
-  loadDemo = (e) => {
-    const demoName = e.target.innerText
-    this.props.initHLV({
+  loadDemo = ({
+    currentTarget
+  }: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const demoName = currentTarget.innerText
+    this.props.init({
       demoName,
       assets: this.state.localAssets,
-      type: 'demo'
+      type: 'demo',
+      showUI: false
     })
+    this.props.toggleUI(false)
   }
-
-  componentDidMount() {}
 
   render() {
     // @ts-ignore
     return (
       <div id="interface-container">
-        <div id="window-container">
-          {this.state.localAssets ? (
-            <>
-              <FileList
-                fileNames={this.state.localAssets.bsp}
-                headerName="Maps"
-                callBack={this.loadMap}
-              />
-              <FileList
-                fileNames={this.state.localAssets.dem}
-                headerName="Demos"
-                callBack={this.loadDemo}
-              />
-            </>
-          ) : null}
-        </div>
+        {this.props.showUI ? (
+          <>
+            {this.state.localAssets ? (
+              <div id="window-container">
+                <>
+                  <FileList
+                    fileNames={this.state.localAssets.bsp}
+                    headerName="Maps"
+                    callBack={this.loadMap}
+                  />
+                  <FileList
+                    fileNames={this.state.localAssets.dem}
+                    headerName="Demos"
+                    callBack={this.loadDemo}
+                  />
+                </>
+              </div>
+            ) : null}
+          </>
+        ) : null}
         {!this.state.filesLoaded ? (
-          <div class="window" id="file-upload" name="Web HL">
+          <div class="window file-upload" name="Web HL">
             <button onClick={this.loadGameDir}>Open Game Directory</button>
           </div>
         ) : null}
@@ -104,4 +114,3 @@ export class FileLoader extends Component<RootState> {
     )
   }
 }
-
