@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "prettier src --write",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -t true -d dist"
   },
   "dependencies": {
     "browser-fs-access": "^0.13.1"
