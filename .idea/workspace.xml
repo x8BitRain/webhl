@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f894a99-7574-403b-bc20-238121f71be9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_bird3.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_cricket.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_dunderpatrullen.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/Sat_wave.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/sounds/loopingleprechaun.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileLoader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/Loader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hlviewerjs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hlviewerjs/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
