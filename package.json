@@ -4,7 +4,7 @@
   "homepage": "http://x8bitrain.github.io/webhl",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/webhl/",
     "lint": "prettier src --write",
     "deploy": "gh-pages -d dist"
   },

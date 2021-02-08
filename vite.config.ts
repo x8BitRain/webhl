@@ -2,6 +2,7 @@ import preactRefresh from '@prefresh/vite'
 import type { UserConfig } from 'vite'
 
 const config: UserConfig = {
+  base: "/webhl/",
 	jsx: {
 		factory: 'h',
 		fragment: 'Fragment',
