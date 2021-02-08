@@ -1,4 +1,6 @@
-# webhl - https://x8bitrain.github.io/webhl/
+# WebHL
+
+## https://x8bitrain.github.io/webhl/
 
 WebHL is a fork of [hlviewer.js](https://github.com/skyrim/hlviewer.js) that uses the File System Access API to load game assets direct from your computer rather than from a a server.
 
