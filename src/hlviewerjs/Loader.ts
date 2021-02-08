@@ -360,7 +360,7 @@ export class Loader extends EventTarget {
     if (skyFile) {
       buffer = await this.processFile(skyFile)
     } else {
-      buffer = await xhr('/missing.tga', {
+      buffer = await xhr('missing.tga', {
         method: 'GET',
         isBinary: true,
         progressCallback
