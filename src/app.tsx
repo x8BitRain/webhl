@@ -1,99 +1,134 @@
-import { h, Component, Fragment, createRef } from 'preact'
-import HLViewer from './hlviewerjs'
-import { FileLoader, LocalAssets} from './components/FileLoader'
+import { h, Component, Fragment, render } from 'preact'
+import { Game } from './hlviewerjs/Game'
+import { Config } from './hlviewerjs/Config'
+import { Root } from './hlviewerjs/PlayerInterface/Root'
+import { FileLoader, LocalAssets } from './components/FileLoader'
 
 interface Payload {
-  demoName: string,
-  assets: LocalAssets,
+  assets: LocalAssets
+  demoName: string
+  mapName: string
   type: string
 }
 
+interface RootState {
+  showUI: boolean
+}
+
 class App extends Component {
+  private game: Game | null
+  private rootNode: Element | null
+  state: RootState
+
   constructor() {
     super()
-    this.state = { errored: false }
+    this.game = null
+    this.rootNode = null
+    this.state = {
+      showUI: true
+    }
   }
 
-  initHLV = (payload: Payload) => {
-    const hlv = HLViewer.init('#hlv-target', {
+  initHLV(
+    rootSelector: string,
+    params: {
       paths: {
-        base: '/',
-        // skies: 'assets/skies',
-        // sounds: 'assets/sounds',
-        replays: payload.assets.dem,
-        maps: payload.assets.bsp,
-        wads: payload.assets.wad,
-        skies: payload.assets.tga,
-        sounds: payload.assets.wav
+        replays: [File]
+        maps: [File]
+        sounds: [File]
+        skies: [File]
+        wads: [File]
+        sprites: [File]
       }
-    })
-    console.log(payload);
-    if (payload.type === 'demo') {
-      this.startDemo(hlv, payload.demoName)
-    } else {
-      this.startMap(hlv, payload.mapName)
+    }
+  ) {
+    const node = document.querySelector(rootSelector)
+    if (!node) {
+      return null
+    }
+    const config = Config.init(params)
+    const result = Game.init(config)
+
+    if (result.status === 'success') {
+      this.game = result.game
+      this.rootNode = node
+
+      this.drawInterface()
+      this.game.draw()
     }
 
+    return null
   }
 
-  startDemo = (hlv: any, demoName: string) => {
-    // const targetDemo = demos.find((demo) => demo.name.match(demoName))
-    // let reader = new FileReader()
-    // reader.onload = function () {
-    //   let arrayBuffer = this.result
-      hlv
-        ? hlv.load(demoName)
-        : console.error('HLViewer not Instantiated yet')
-    //   console.log(hlv)
-    // }
-    // targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
+  init = (payload: Payload) => {
+    if (!this.game) {
+      this.initHLV('#hlv-target', {
+        paths: {
+          replays: payload.assets.dem,
+          maps: payload.assets.bsp,
+          wads: payload.assets.wad,
+          skies: payload.assets.tga,
+          sounds: payload.assets.wav,
+          sprites: payload.assets.spr
+        }
+      })
+      if (payload.type === 'demo') {
+        this.startDemo(payload.demoName)
+      } else {
+        this.startMap(payload.mapName)
+      }
+    } else {
+      if (payload.type === 'demo') {
+        this.startDemo(payload.demoName)
+        console.warn()
+      } else {
+        this.startMap(payload.mapName)
+      }
+    }
   }
 
-  startMap = (hlv: any, mapName: string) => {
-    // const targetDemo = demos.find((demo) => demo.name.match(demoName))
-    // let reader = new FileReader()
-    // reader.onload = function () {
-    //   let arrayBuffer = this.result
-    hlv
-      ? hlv.load(mapName)
+  startDemo = (demoName: string) => {
+    this.game
+      ? this.game.load(demoName)
       : console.error('HLViewer not Instantiated yet')
-    //   console.log(hlv)
-    // }
-    // targetDemo ? reader.readAsArrayBuffer(targetDemo) : null
   }
 
-  async componentDidMount() {
-    // const hlv = HLViewer.init('#hlv-target', {
-    //   paths: {
-    //     base:    '/',
-    //     replays: 'assets/demos',
-    //     maps:    'assets/maps',
-    //     wads:    'assets/wads',
-    //     skies:   'assets/skies',
-    //     sounds:  'assets/sounds'
-    //   }
-    // })
-    // this.fileUpload.current.addEventListener('change', function(this: HTMLInputElement): void {
-    //   let reader = new FileReader();
-    //   reader.onload = function () {
-    //     let arrayBuffer = this.result
-    //     hlv ? hlv.load(arrayBuffer as object) : console.error('HLViewer not Instantiated yet')
-    //   }
-    //   if (this.files && this.parentElement) {
-    //     reader.readAsArrayBuffer(this.files[0])
-    //     this.parentElement.style.opacity = '0'
-    //   }
-    // }, false);
+  startMap = (mapName: string) => {
+    this.game
+      ? this.game.load(mapName)
+      : console.error('HLViewer not Instantiated yet')
+  }
+
+  toggleUI = (state: boolean) => {
+    this.setState({
+      showUI: state || !this.state.showUI
+    })
+  }
+
+  componentWillUnmount() {
+    this.game = null
+  }
+
+  drawInterface() {
+    render(
+      <Root
+        game={this.game as Game}
+        root={this.rootNode as Element}
+        toggleUI={this.toggleUI}
+      />,
+      this.rootNode as Element
+    )
   }
 
   render() {
-    // @ts-ignore
     return (
       <>
-        <div id="app">
-          <FileLoader initHLV={this.initHLV} />
-          <div id="hlv-target" />
-        </div>
+        <FileLoader
+          init={this.init}
+          showUI={this.state.showUI}
+          toggleUI={this.toggleUI}
+        />
+        <div id="hlv-target"/>
       </>
     )
   }

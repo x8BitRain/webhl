@@ -336,7 +336,7 @@ input[type='range'].ticks::after {
   width: 100%;
   height: 18px;
   line-height: 18px;
-  text-indent: -200px;
+  text-indent: -100px;
   /*text-indent: 24px;*/
   background-image: url('../../assets/images/icons/steamico.png'),
     url('../../assets/images/icons/minimize.png'),
@@ -599,11 +599,11 @@ a:hover {
   text-decoration: underline;
 }
 .DownloadButton {
-  background: url(/greensteam/download.png) no-repeat;
+  /*background: url(/greensteam/download.png) no-repeat;*/
   border: none;
 }
 .DownloadButton:active {
-  background: url(/greensteam/download_pressed.png) no-repeat;
+  /*background: url(/greensteam/download_pressed.png) no-repeat;*/
 }
 p.menu-item {
   padding: 4px;

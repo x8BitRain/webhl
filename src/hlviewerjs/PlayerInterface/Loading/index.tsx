@@ -57,7 +57,7 @@ export class Loading extends Component<LoadingProps, LoadingState> {
     }
 
     items.push({
-      name: item.name,
+      name: item.name as string,
       progress: 0
     })
 
