@@ -192,6 +192,7 @@ export class Root extends Component<RootProps, RootState> {
   }
 
   onLoadEnd = () => {
+    this.props.game.player.play()
     this.setState({ isLoading: false })
   }
 
