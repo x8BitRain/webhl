@@ -79,6 +79,7 @@ input[type='color']:active,
   border-bottom: solid 1px #899281;
   border-left: solid 1px #292d23;
   border-right: solid 1px #899281;
+  -webkit-font-smoothing: auto !important;
 }
 button:focus,
 input[type='button']:focus,

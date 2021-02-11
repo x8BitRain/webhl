@@ -1,34 +1,37 @@
 @import 'greensteam.css';
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 * {
   box-sizing: border-box;
 }
 
-#app {
+html,
+body {
   height: 100vh;
   width: 100vw;
+  max-width:100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+#app {
+  height: 100%;
+  width: 100%;
+  max-width:100%;
   text-align: center;
   font-size: 1em;
   background-image: url("../../assets/images/hl.svg");
   background-repeat: no-repeat;
   background-position: center;
+  overflow: hidden;
 }
 
 #hlv-target {
   height: 100%;
   width: 100%;
-  #toggle-ui {
-  }
 }
 
 #interface-container {
@@ -47,6 +50,7 @@ body {
   .file-upload {
     width: 235px;
     height: fit-content;
+    height: -moz-available;
     z-index: 11;
     margin: 10px;
     opacity: 1;
