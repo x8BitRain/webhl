@@ -29,6 +29,10 @@ body {
   overflow: hidden;
 }
 
+.loading {
+  background-image: url("../../assets/images/hl-spin.svg") !important;
+}
+
 #hlv-target {
   height: 100%;
   width: 100%;

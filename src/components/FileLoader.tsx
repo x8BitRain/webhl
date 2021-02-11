@@ -43,7 +43,7 @@ export class FileLoader extends Component<RootProps, RootState> {
   loadGameDir = async () => {
     let blobs: File[];
     const app = document.querySelector('#app') as HTMLElement
-    app ? app.style.backgroundImage = 'url("/assets/images/hl-spin.svg")' : null
+    app ? app.classList.add('loading') : null
     let assets: any = {}
     const fileTypes = ['bsp', 'dem', 'wad', 'wav', 'tga', 'spr']
     // @ts-ignore
@@ -56,7 +56,7 @@ export class FileLoader extends Component<RootProps, RootState> {
         recursive: true
       })
     }
-    app.style.backgroundImage = 'url("/assets/images/hl.svg")'
+    app.classList.remove('loading')
     fileTypes.forEach((type) => {
       const typeString = new RegExp('.' + type, 'i')
       assets[type] = (blobs).filter((map: File) => map.name.match(typeString))
