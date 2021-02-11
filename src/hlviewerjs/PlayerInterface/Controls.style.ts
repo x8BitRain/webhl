@@ -25,7 +25,7 @@ export const ControlsStyle = stylesheet({
     height: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: '6px',
+    // marginBottom: '6px',
     alignItems: 'center'
   },
   button: {

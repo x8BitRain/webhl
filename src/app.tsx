@@ -13,6 +13,7 @@ interface Payload {
 
 interface RootState {
   showUI: boolean
+  fov: number
 }
 
 class App extends Component {
@@ -25,7 +26,8 @@ class App extends Component {
     this.game = null
     this.rootNode = null
     this.state = {
-      showUI: true
+      showUI: true,
+      fov: 100
     }
   }
 

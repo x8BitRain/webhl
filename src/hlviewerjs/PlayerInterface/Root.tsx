@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import {h, Component, JSX} from 'preact'
 import { Loading } from './Loading'
 import { FreeMode } from './FreeMode'
 import { ReplayMode } from './ReplayMode'
@@ -253,6 +253,11 @@ export class Root extends Component<RootProps, RootState> {
     }
   }
 
+  // onFovSliderChange = ({ currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+  //   const value = parseInt(currentTarget.value)
+  //   this.props.game.draw(value)
+  // }
+
   onScreenDblClick = () => {
     if (Fullscreen.isInFullscreen()) {
       Fullscreen.exit()
@@ -276,6 +281,12 @@ export class Root extends Component<RootProps, RootState> {
         </button>
 
         <Loading game={game} visible={this.state.isLoading} />
+
+        {/*<div style='position: absolute; top:0; z-index:9999'>*/}
+        {/*  <input type="range" id="volume" name="volume"*/}
+        {/*         min="0" max="200" onChange={this.onFovSliderChange}/>*/}
+        {/*    <label for="volume">Volume</label>*/}
+        {/*</div>*/}
 
         <div
           class={s.screen}

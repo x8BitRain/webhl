@@ -1,6 +1,7 @@
 import { h, Component, createRef, Fragment, JSX } from 'preact'
 import FileList from './FileList'
-import { directoryOpen } from 'browser-fs-access'
+import chromeDirectoryOpen from '../utils/directoryOpen'
+import { directoryOpen } from "browser-fs-access";
 
 interface RootState {
   errored: boolean
@@ -40,16 +41,25 @@ export class FileLoader extends Component<RootProps, RootState> {
   }
 
   loadGameDir = async () => {
+    let blobs: File[];
+    const app = document.querySelector('#app') as HTMLElement
+    app ? app.style.backgroundImage = 'url("/assets/images/hl-spin.svg")' : null
     let assets: any = {}
     const fileTypes = ['bsp', 'dem', 'wad', 'wav', 'tga', 'spr']
-
-    const blobs = await directoryOpen({
-      recursive: true
-    })
-
+    // @ts-ignore
+    if (!!window.chrome) {
+      blobs = await chromeDirectoryOpen({
+        recursive: true
+      })
+    } else {
+      blobs = await directoryOpen({
+        recursive: true
+      })
+    }
+    app.style.backgroundImage = 'url("/assets/images/hl.svg")'
     fileTypes.forEach((type) => {
       const typeString = new RegExp('.' + type, 'i')
-      assets[type] = blobs.filter((map) => map.name.match(typeString))
+      assets[type] = (blobs).filter((map: File) => map.name.match(typeString))
     })
 
     this.setState({
