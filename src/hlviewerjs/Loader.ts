@@ -210,7 +210,7 @@ export class Loader extends EventTarget {
       buffer = await this.processFile(demoFile)
     } else {
       this.replay.error()
-      console.error('Could not load: ', demo)
+      console.error('Could not load demo')
       this.checkStatus()
     }
 
@@ -249,13 +249,12 @@ export class Loader extends EventTarget {
 
       this.dispatchEvent(evt('progress', { detail: { item: this.map } }))
     }
-
     const mapFile = this.config.paths.maps.find((file) => file.name === name)
     if (mapFile) {
       buffer = await this.processFile(mapFile)
     } else {
       this.map.error()
-      console.error('Could not load: ', name)
+      console.error('Could not find map ', name)
       this.checkStatus()
     }
 
@@ -326,7 +325,7 @@ export class Loader extends EventTarget {
       buffer = await this.processFile(sprFile)
     } else {
       item.error()
-      console.error('Could not load: ', spriteName)
+      console.error('Could not load sprite ', spriteName)
       this.checkStatus()
     }
 
@@ -402,7 +401,7 @@ export class Loader extends EventTarget {
       buffer = await this.processFile(wadFile)
     } else {
       wadItem.error()
-      console.error('Could not load: ', name)
+      console.error('Could not load wad: ', name)
       this.checkStatus()
     }
 
@@ -458,12 +457,12 @@ export class Loader extends EventTarget {
       buffer = await this.processFile(soundFile)
       data = await Sound.create(buffer as ArrayBuffer).catch((err: any) => {
         sound.error()
-        console.error(err, sound)
+        // console.error(err, sound)
         this.checkStatus()
       })
     } else {
       sound.error()
-      console.error('Could not load: ', name)
+      console.error('Could not load sound ', name)
       this.checkStatus()
     }
 
