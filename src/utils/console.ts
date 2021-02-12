@@ -39,6 +39,7 @@ const initConsole = (toggleUI: Function, showConsole: Boolean, errors: []) => {
       }
     }
     console.error = console.warn = console.info =  console.log
+    console.log('λ WebHL 0.0.3 Loaded')
   }
 }
 

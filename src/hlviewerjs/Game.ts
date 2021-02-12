@@ -253,6 +253,7 @@ export class Game extends EventTarget {
       }
     })
 
+    this.sounds = []
     if (loader.sounds.length > 0) {
       loader.sounds.forEach((sound) => {
         if (sound.data) {
@@ -353,7 +354,8 @@ export class Game extends EventTarget {
       const KEY_S = Keyboard.KEYS.S
       const KEY_A = Keyboard.KEYS.A
       const KEY_D = Keyboard.KEYS.D
-      const downKey = Keyboard.KEYS.C
+      const C = Keyboard.KEYS.C
+      const downKey = Keyboard.KEYS.CTRL
       const upKey = Keyboard.KEYS.SPACE
       if (keyboard.keys[KEY_W] !== keyboard.keys[KEY_S]) {
         if (keyboard.keys[KEY_W]) {
@@ -378,7 +380,17 @@ export class Game extends EventTarget {
       if (keyboard.keys[upKey] !== keyboard.keys[downKey]) {
         if (keyboard.keys[upKey]) {
           camera.position[2] += ds
-        } else if (keyboard.keys[downKey]) {
+        }
+        if (keyboard.keys[C]) {
+          camera.position[2] -= ds
+        }
+        if (keyboard.keys[downKey]) {
+          camera.position[2] -= ds
+        }
+      }
+
+      if (keyboard.keys[C] !== keyboard.keys[downKey]) {
+        if (keyboard.keys[C]) {
           camera.position[2] -= ds
         }
       }
