@@ -292,6 +292,7 @@ export class WorldScene {
   }
 
   private loadTextures(bsp: Bsp) {
+    this.textures = []
     const gl = this.context.gl
 
     for (let i = 0; i < bsp.textures.length; ++i) {
