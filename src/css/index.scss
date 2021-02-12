@@ -45,11 +45,45 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  #settings-box {
+    label {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 120px;
+    }
+    &:before {
+      text-indent: -95px;
+    }
+  }
+  #error-box {
+    z-index: 11;
+    &:before {
+      text-indent: -350px;
+    }
+    #item-list {
+      height: 85%;
+      overflow: auto;
+    }
+    height: 230px;
+    width: 485px;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+  }
   #window-container {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
     margin: 10px;
+  }
+  #demo-upload {
+    input[type=file] {
+      width: 85px;
+    }
+    &:before {
+      text-indent: -60px !important;
+    }
   }
   .file-upload {
     width: 235px;
@@ -59,6 +93,9 @@ body {
     margin: 10px;
     opacity: 1;
     transition: opacity 300ms ease;
+    &:before {
+      text-indent: -120px;
+    }
     input {
       margin-top: 5px;
     }

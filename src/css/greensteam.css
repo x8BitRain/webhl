@@ -337,8 +337,7 @@ input[type='range'].ticks::after {
   width: 100%;
   height: 18px;
   line-height: 18px;
-  text-indent: -100px;
-  /*text-indent: 24px;*/
+  text-indent: 24px;
   background-image: url('../../assets/images/icons/steamico.png'),
     url('../../assets/images/icons/minimize.png'),
     url('../../assets/images/icons/close.png');

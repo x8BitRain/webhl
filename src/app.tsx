@@ -43,7 +43,7 @@ class App extends Component {
         sprites: [File]
       }
     }
-  ) {
+  ):void {
     const node = document.querySelector(rootSelector)
     if (!node) {
       return null
@@ -104,6 +104,14 @@ class App extends Component {
   toggleUI = (state: boolean) => {
     this.setState({
       showUI: state || !this.state.showUI
+    })
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', (event) => {
+      if (event.code === 'Backquote') {
+        this.toggleUI(!this.state.showUI)
+      }
     })
   }
 

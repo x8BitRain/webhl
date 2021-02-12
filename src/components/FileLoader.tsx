@@ -1,10 +1,13 @@
 import { h, Component, createRef, Fragment, JSX } from 'preact'
 import FileList from './FileList'
+import initConsole from '../utils/console'
 import chromeDirectoryOpen from '../utils/directoryOpen'
 import { directoryOpen } from "browser-fs-access";
 
 interface RootState {
+  errors: []
   errored: boolean
+  showConsole: boolean
   filesLoaded: boolean
   localAssets: LocalAssets | null
   maps: [] | null
@@ -32,6 +35,8 @@ export class FileLoader extends Component<RootProps, RootState> {
   constructor(props: RootProps) {
     super(props)
     this.state = {
+      errors: [],
+      showConsole: false,
       errored: false,
       filesLoaded: false,
       localAssets: null,
@@ -91,8 +96,34 @@ export class FileLoader extends Component<RootProps, RootState> {
     this.props.toggleUI(false)
   }
 
+  loadDemoManual = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const file = currentTarget.files[0]
+    this.state.localAssets.dem.push(file)
+    this.props.init({
+      demoName: file.name,
+      assets: this.state.localAssets,
+      type: 'demo',
+      showUI: false
+    })
+    this.props.toggleUI(false)
+  }
+
+  showConsole = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    localStorage.setItem('showConsole', String(!this.state.showConsole === true))
+    this.setState({
+      showConsole: (currentTarget).checked
+    })
+  }
+
+  componentDidMount() {
+    initConsole(this.props.toggleUI, this.state.showConsole, this.state.errors)
+    this.setState({
+      showConsole: (window.localStorage.getItem('showConsole') === 'true')
+    })
+
+  }
+
   render() {
-    // @ts-ignore
     return (
       <div id="interface-container">
         {this.props.showUI ? (
@@ -105,12 +136,36 @@ export class FileLoader extends Component<RootProps, RootState> {
                     headerName="Maps"
                     callBack={this.loadMap}
                   />
-                  <FileList
-                    fileNames={this.state.localAssets.dem}
-                    headerName="Demos"
-                    callBack={this.loadDemo}
-                  />
+                  <div style={'z-index: 11'}>
+                    <FileList
+                      fileNames={this.state.localAssets.dem}
+                      headerName="Demos"
+                      callBack={this.loadDemo}
+                    />
+                    <div class="window file-upload" id="demo-upload" name={'Demo Upload'}>
+                      <input type='file' onChange={this.loadDemoManual} accept={'.dem'} />
+                    </div>
+                    <div class="window file-upload"id="settings-box" name={'Settings'}>
+                      <label htmlFor='show-console-setting'>
+                        <input type='checkbox' name='Show Console' id='show-console-setting' checked={this.state.showConsole} onChange={this.showConsole}/>
+                        Show console
+                      </label>
+                    </div>
+                    <div class="box file-upload">
+                      <a href='https://github.com/x8BitRain/webhl'>GitHub</a>
+                    </div>
+                  </div>
                 </>
+                {this.state.showConsole ? <div class='window' id='error-box' name={'Console'}>
+                  <div class='box inset' id='item-list'>
+                    {this.state.errors ?
+                      this.state.errors.map((error: string) => (
+                        <p class='menu-item'>
+                          {error}
+                        </p>
+                      )) : null}
+                  </div>
+                </div> : null}
               </div>
             ) : null}
           </>
