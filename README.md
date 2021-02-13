@@ -21,7 +21,7 @@ Have fun!
 
 ### Troubleshooting
  - "...can't open this folder because it contains system files"
-   - Unfortunately this is an unavoidable browser security feature. You might have to move your HL folder outside of Program Files to make it work.
+   - Unfortunately this is an unavoidable browser security feature. You might have to move your HL folder outside of Program Files to make it work, I recommend the [Goldsrc package](https://forums.sourceruns.org/t/goldsrc-package-2-4/2634) for this.
  - Nothing loads after choosing a game folder:
    - This is a [browser bug on chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=1176294), try a few more times, it works 3/5 times.
  - Screen is black and or loads forever:
