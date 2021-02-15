@@ -9,7 +9,7 @@ Interface design from from [vgui.css](https://github.com/AlpyneDreams/vgui.css)
 
 Click "Open Game Directory" and open your 'Half-life' game folder containing 'valve', 'gearbox', 'cstrike', 'tfc', etc folders, then choose a map or demo to load from the menu.
 
-WASD, Ctrl and Space to move, F for fullscreen, esc to release mouse, and ~ to toggle the menu.
+WASD, Ctrl or C and Space to move, F for fullscreen, esc to release mouse, and ~ to toggle the menu.
 
 Have fun!
 
