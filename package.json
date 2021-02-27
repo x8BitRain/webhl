@@ -1,6 +1,6 @@
 {
   "name": "webhl",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "homepage": "http://x8bitrain.github.io/webhl",
   "scripts": {
     "dev": "vite",

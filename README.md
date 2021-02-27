@@ -2,7 +2,7 @@
 
 ## https://x8bitrain.github.io/webhl/
 
-WebHL is a fork of [hlviewer.js](https://github.com/skyrim/hlviewer.js) that uses the File System Access API to load game assets direct from your computer rather than from a server.
+WebHL is a fork of [hlviewer.js](https://github.com/skyrim/hlviewer.js) that uses the File System Access API to load game assets direct from your computer rather than from a server, including recording.
 Interface design from from [vgui.css](https://github.com/AlpyneDreams/vgui.css) 
 
 ### How to use
@@ -10,6 +10,8 @@ Interface design from from [vgui.css](https://github.com/AlpyneDreams/vgui.css)
 Click "Open Game Directory" and open your 'Half-life' game folder containing 'valve', 'gearbox', 'cstrike', 'tfc', etc folders, then choose a map or demo to load from the menu.
 
 WASD, Ctrl or C and Space to move, F for fullscreen, esc to release mouse, and ~ to toggle the menu.
+
+Click on the red circle in the bottom right to start recording footage, press again to download a webm.
 
 Have fun!
 
