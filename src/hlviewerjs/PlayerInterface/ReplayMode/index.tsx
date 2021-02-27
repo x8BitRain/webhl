@@ -2,10 +2,12 @@ import { h, Component } from 'preact'
 import { Time } from '../Time'
 import { Game } from '../../Game'
 import { TimeLine } from '../TimeLine'
+import { Recorder } from '../../Recorder'
 import { VolumeControl } from '../VolumeControl'
 import { PlayButton } from '../Buttons/PlayButton'
 import { PauseButton } from '../Buttons/PauseButton'
 import { VolumeButton } from '../Buttons/VolumeButton'
+import { RecordButton } from '../Buttons/RecordButton'
 import { SpeedUpButton } from '../Buttons/SpeedUpButton'
 import { SpeedDownButton } from '../Buttons/SpeedDownButton'
 import { SettingsButton } from '../Buttons/SettingsButton'
@@ -20,6 +22,8 @@ interface ReplayModeProps {
 }
 
 export class ReplayMode extends Component<ReplayModeProps> {
+  recorder = new Recorder()
+
   componentDidMount() {
     this.props.game.player.on('play', this.onPlayStateChange)
     this.props.game.player.on('pause', this.onPlayStateChange)
@@ -56,6 +60,10 @@ export class ReplayMode extends Component<ReplayModeProps> {
     this.forceUpdate()
   }
 
+  onRecord = () => {
+    this.recorder.record(this.props.game)
+  }
+
   render() {
     const game = this.props.game
     const player = game.player
@@ -75,6 +83,7 @@ export class ReplayMode extends Component<ReplayModeProps> {
               <PauseButton onClick={this.onPauseClick} />
             )}
             <SpeedUpButton onClick={this.onSpeedUp} />
+            <RecordButton onClick={this.onRecord} />
             <VolumeButton onClick={this.onVolumeClick} />
             <VolumeControl game={game} />
             <Time player={player} />
