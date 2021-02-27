@@ -8,6 +8,7 @@ const audioContext: AudioContext = new polyfillAudioContext()
 
 export class SoundSystem extends EventTarget {
   context: AudioContext
+  stream: MediaStreamAudioDestinationNode
   channels: any[]
   masterGain: GainNode
   preMuteVolume: number
@@ -15,6 +16,7 @@ export class SoundSystem extends EventTarget {
   constructor() {
     super()
     this.context = audioContext
+    this.stream = audioContext.createMediaStreamDestination()
 
     const volume = parseFloat(localStorage.getItem('volume') || '0.3')
     localStorage.setItem('volume', volume.toString())
@@ -25,6 +27,7 @@ export class SoundSystem extends EventTarget {
     this.masterGain = this.context.createGain()
     this.masterGain.gain.value = volume
     this.masterGain.connect(this.context.destination)
+    this.masterGain.connect(this.stream)
 
     for (let i = 0; i < 8; ++i) {
       this.channels.push({
