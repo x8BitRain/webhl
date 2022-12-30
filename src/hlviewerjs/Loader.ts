@@ -178,7 +178,7 @@ export class Loader extends EventTarget {
   }
 
   async load(file: string) {
-    console.log(file);
+    console.log(file)
     const extension = extname(file)
     if (extension === '.dem') {
       await this.loadReplay(file)

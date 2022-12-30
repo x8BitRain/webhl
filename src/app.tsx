@@ -43,7 +43,7 @@ class App extends Component {
         sprites: [File]
       }
     }
-  ):void {
+  ): void {
     const node = document.querySelector(rootSelector)
     if (!node) {
       return null
@@ -138,7 +138,7 @@ class App extends Component {
           showUI={this.state.showUI}
           toggleUI={this.toggleUI}
         />
-        <div id="hlv-target"/>
+        <div id="hlv-target" />
       </>
     )
   }

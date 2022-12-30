@@ -1,4 +1,4 @@
-import {h, Component, JSX} from 'preact'
+import { h, Component, JSX } from 'preact'
 import { Loading } from './Loading'
 import { FreeMode } from './FreeMode'
 import { ReplayMode } from './ReplayMode'

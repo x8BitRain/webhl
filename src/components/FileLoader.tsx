@@ -2,7 +2,7 @@ import { h, Component, createRef, Fragment, JSX } from 'preact'
 import FileList from './FileList'
 import initConsole from '../utils/console'
 import chromeDirectoryOpen from '../utils/directoryOpen'
-import { directoryOpen } from "browser-fs-access";
+import { directoryOpen } from 'browser-fs-access'
 
 interface RootState {
   errors: []
@@ -46,7 +46,7 @@ export class FileLoader extends Component<RootProps, RootState> {
   }
 
   loadGameDir = async () => {
-    let blobs: File[];
+    let blobs: File[]
     const app = document.querySelector('#app') as HTMLElement
     app ? app.classList.add('loading') : null
     let assets: any = {}
@@ -64,7 +64,7 @@ export class FileLoader extends Component<RootProps, RootState> {
     app.classList.remove('loading')
     fileTypes.forEach((type) => {
       const typeString = new RegExp('.' + type, 'i')
-      assets[type] = (blobs).filter((map: File) => map.name.match(typeString))
+      assets[type] = blobs.filter((map: File) => map.name.match(typeString))
     })
 
     this.setState({
@@ -96,7 +96,9 @@ export class FileLoader extends Component<RootProps, RootState> {
     this.props.toggleUI(false)
   }
 
-  loadDemoManual = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+  loadDemoManual = ({
+    currentTarget
+  }: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     const file = currentTarget.files[0]
     this.state.localAssets.dem.push(file)
     this.props.init({
@@ -108,19 +110,23 @@ export class FileLoader extends Component<RootProps, RootState> {
     this.props.toggleUI(false)
   }
 
-  showConsole = ({currentTarget}: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    localStorage.setItem('showConsole', String(!this.state.showConsole === true))
+  showConsole = ({
+    currentTarget
+  }: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    localStorage.setItem(
+      'showConsole',
+      String(!this.state.showConsole === true)
+    )
     this.setState({
-      showConsole: (currentTarget).checked
+      showConsole: currentTarget.checked
     })
   }
 
   componentDidMount() {
     initConsole(this.props.toggleUI, this.state.showConsole, this.state.errors)
     this.setState({
-      showConsole: (window.localStorage.getItem('showConsole') === 'true')
+      showConsole: window.localStorage.getItem('showConsole') === 'true'
     })
-
   }
 
   render() {
@@ -142,37 +148,66 @@ export class FileLoader extends Component<RootProps, RootState> {
                       headerName="Demos"
                       callBack={this.loadDemo}
                     />
-                    <div class="window file-upload" id="demo-upload" name={'Demo Upload'}>
-                      <input type='file' onChange={this.loadDemoManual} accept={'.dem'} />
+                    <div
+                      class="window file-upload"
+                      id="demo-upload"
+                      name={'Demo Upload'}
+                    >
+                      <input
+                        type="file"
+                        onChange={this.loadDemoManual}
+                        accept={'.dem'}
+                      />
                     </div>
-                    <div class="window file-upload"id="settings-box" name={'Settings'}>
-                      <label htmlFor='show-console-setting'>
-                        <input type='checkbox' name='Show Console' id='show-console-setting' checked={this.state.showConsole} onChange={this.showConsole}/>
+                    <div
+                      class="window file-upload"
+                      id="settings-box"
+                      name={'Settings'}
+                    >
+                      <label htmlFor="show-console-setting">
+                        <input
+                          type="checkbox"
+                          name="Show Console"
+                          id="show-console-setting"
+                          checked={this.state.showConsole}
+                          onChange={this.showConsole}
+                        />
                         Show console
                       </label>
                     </div>
                     <div class="box file-upload">
-                      <a href='https://github.com/x8BitRain/webhl'>GitHub</a>
+                      <a href="https://github.com/x8BitRain/webhl">GitHub</a>
                     </div>
                   </div>
                 </>
-                {this.state.showConsole ? <div class='window' id='error-box' name={'Console'}>
-                  <div class='box inset' id='item-list'>
-                    {this.state.errors ?
-                      this.state.errors.map((error: string) => (
-                        <p class='menu-item'>
-                          {error}
-                        </p>
-                      )) : null}
+                {this.state.showConsole ? (
+                  <div class="window" id="error-box" name={'Console'}>
+                    <div class="box inset" id="item-list">
+                      {this.state.errors
+                        ? this.state.errors.map((error: string) => (
+                            <p class="menu-item">{error}</p>
+                          ))
+                        : null}
+                    </div>
                   </div>
-                </div> : null}
+                ) : null}
               </div>
             ) : null}
           </>
         ) : null}
         {!this.state.filesLoaded ? (
-          <div class="window file-upload" name="Web HL">
-            <button onClick={this.loadGameDir}>Open Game Directory</button>
+          <div>
+            <div class="window file-upload" name="Web HL">
+              <button onClick={this.loadGameDir}>Open Game Directory</button>
+            </div>
+            <div class="box file-upload" name="GoldSrc Package">
+              <a
+                href="https://forums.sourceruns.org/t/goldsrc-package-2-4/2634"
+                target="_blank"
+              >
+                Download the GoldSrc Package
+              </a>
+            </div>
           </div>
         ) : null}
       </div>

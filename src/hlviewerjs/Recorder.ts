@@ -1,8 +1,8 @@
 import { Game } from './Game'
 
 export class Recorder {
-  recorder: MediaRecorder | null = null;
-  isRecording = false;
+  recorder: MediaRecorder | null = null
+  isRecording = false
 
   record = (game: Game) => {
     if (this.isRecording) {
@@ -14,7 +14,8 @@ export class Recorder {
     const canvas = game.canvas
     const stream = (canvas as any).captureStream(60) // record at 60fps
     if (game.mode === 1) {
-      game.soundSystem.stream.stream.getAudioTracks()
+      game.soundSystem.stream.stream
+        .getAudioTracks()
         .forEach((a) => stream.addTrack(a))
     }
     const chunks: Blob[] = []
@@ -49,5 +50,3 @@ export class Recorder {
     }
   }
 }
-
-

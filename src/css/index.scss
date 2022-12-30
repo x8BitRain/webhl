@@ -8,7 +8,7 @@ html,
 body {
   height: 100vh;
   width: 100vw;
-  max-width:100%;
+  max-width: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -16,21 +16,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 #app {
   height: 100%;
   width: 100%;
-  max-width:100%;
+  max-width: 100%;
   text-align: center;
   font-size: 1em;
-  background-image: url("../../assets/images/hl.svg");
+  background-image: url('../../assets/images/hl.svg');
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
 }
 
 .loading {
-  background-image: url("../../assets/images/hl-spin.svg") !important;
+  background-image: url('../../assets/images/hl-spin.svg') !important;
 }
 
 #hlv-target {
@@ -47,10 +46,10 @@ body {
   left: 0;
   #settings-box {
     label {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 120px;
     }
     &:before {
       text-indent: -95px;
@@ -78,7 +77,7 @@ body {
     margin: 10px;
   }
   #demo-upload {
-    input[type=file] {
+    input[type='file'] {
       width: 85px;
     }
     &:before {

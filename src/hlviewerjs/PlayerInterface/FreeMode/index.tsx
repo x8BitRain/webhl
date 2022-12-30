@@ -25,7 +25,7 @@ export class FreeMode extends Component<FreeModeProps> {
     return (
       <div class={classes(this.props.class, s.controls)}>
         <div class={cs.buttons}>
-          <div class={cs.left} >
+          <div class={cs.left}>
             <RecordButton onClick={this.onRecord} />
           </div>
           <div class={cs.right}>
