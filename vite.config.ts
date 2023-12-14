@@ -1,13 +1,9 @@
-import preactRefresh from '@prefresh/vite'
+import preact from '@preact/preset-vite'
 import type { UserConfig } from 'vite'
 
 const config: UserConfig = {
   base: "/webhl/",
-	jsx: {
-		factory: 'h',
-		fragment: 'Fragment',
-	},
-	plugins: [preactRefresh()],
+  plugins: [preact()],
 }
 
 export default config

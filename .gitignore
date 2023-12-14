@@ -6,3 +6,5 @@ dist-ssr
 yarn-error.log
 .yarn
 .yarnrc.yml
+dist/*
+dist
